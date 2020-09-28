@@ -7,3 +7,4 @@ Simple app to help calculate which players should have priority on loot in WoW C
 3. Add a real DB instead of using a file system
 4. Add a web app
 5. Add tests
+6. Change to loot priority by item based on upgrade value (and possibly historical data on BiS for phase received before)
