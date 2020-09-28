@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 
-namespace LootPriority
+namespace LootPriority.ConsoleApp
 {
     public static class WarcraftLogDb
     {

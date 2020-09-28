@@ -5,7 +5,7 @@ using System;
 using Csv;
 
 
-namespace LootPriority
+namespace LootPriority.ConsoleApp
 {
     public static class ItemDb
     {

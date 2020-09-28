@@ -4,7 +4,7 @@ using System.Linq;
 using System.IO;
 using Csv;
 
-namespace LootPriority
+namespace LootPriority.ConsoleApp
 {
     public static class LootDb
     {

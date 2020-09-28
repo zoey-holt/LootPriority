@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 
-namespace LootPriority
+namespace LootPriority.ConsoleApp
 {
     public class Program
     {
         public const string ServerName = "Grobbulus";
-        public const double PerformancePower = 0.25;
+        public const double PerformancePower = 0.5;
         public static string DataFolder = $"{Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()))))}\\Data";
         public static Dictionary<RaidTier, DateTime> RaidTierDates = new Dictionary<RaidTier, DateTime>
         {
@@ -29,7 +29,7 @@ namespace LootPriority
             PrintItems(items, warlockMax, mageMax);
 
             var nDaysAgo = DateTime.Today - TimeSpan.FromDays(90);
-            IEnumerable<Player> players = PlayerDb.LoadPlayers(nDaysAgo, RaidTierDates[RaidTier.BlackwingLair], RaidTierDates[RaidTier.AhnQiraj])
+            IEnumerable<Player> players = PlayerDb.LoadPlayers(RaidTierDates[RaidTier.BlackwingLair], RaidTierDates[RaidTier.BlackwingLair], RaidTierDates[RaidTier.BlackwingLair])
                 .Where(p => p.Characters.Any(c => c.IsMain && (c.Class == CharacterClass.Warlock || c.Class == CharacterClass.Mage)))
                 .OrderByDescending(p => p.LootPriority);
 
