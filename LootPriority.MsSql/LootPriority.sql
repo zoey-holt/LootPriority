@@ -258,6 +258,14 @@ CREATE TABLE Item (
 	FOREIGN KEY (RewardFromQuestItem) REFERENCES Item (ID),
 )
 
+CREATE TABLE ItemClass (
+	ID INT PRIMARY KEY IDENTITY (1, 1),
+	ItemID INT NULL,
+	ClassID INT NULL,
+	FOREIGN KEY (ItemID) REFERENCES Item (ID),
+	FOREIGN KEY (ClassID) REFERENCES Class (ID),
+)
+
 CREATE TABLE ItemClassWeight (
 	ID INT PRIMARY KEY IDENTITY (1, 1),
 	ItemID INT NOT NULL,
@@ -340,6 +348,8 @@ INSERT INTO SlotClassWeight (SlotID, ClassID, Weight) VALUES ((SELECT ID FROM Sl
 INSERT INTO SlotClassWeight (SlotID, ClassID, Weight) VALUES ((SELECT ID FROM Slot WHERE Name = 'Ranged'), (SELECT ID FROM Class WHERE Name = 'Warlock'), 0.25)
 
 --DELETE FROM BossLoot;
+--DELETE FROM ItemClass;
+--DELETE FROM CharacterLoot;
 --DELETE FROM Item;
 
 -- Shared AQ40
@@ -372,6 +382,33 @@ INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VAL
 INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (21361, 'Deathdealer''s Spaulders', 78, (SELECT ID FROM Slot WHERE Name = 'Shoulder'), 0, (SELECT ID FROM Item WHERE Name = 'Qiraji Bindings of Command'))
 INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (21350, 'Mantle of the Oracle', 78, (SELECT ID FROM Slot WHERE Name = 'Shoulder'), 0, (SELECT ID FROM Item WHERE Name = 'Qiraji Bindings of Command'))
 INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (21367, 'Striker''s Pauldrons', 78, (SELECT ID FROM Slot WHERE Name = 'Shoulder'), 0, (SELECT ID FROM Item WHERE Name = 'Qiraji Bindings of Command'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Qiraji Bindings of Dominance'), (SELECT ID FROM Class WHERE [Name] = 'Paladin'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Qiraji Bindings of Dominance'), (SELECT ID FROM Class WHERE [Name] = 'Warlock'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Qiraji Bindings of Dominance'), (SELECT ID FROM Class WHERE [Name] = 'Mage'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Qiraji Bindings of Dominance'), (SELECT ID FROM Class WHERE [Name] = 'Druid'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Qiraji Bindings of Dominance'), (SELECT ID FROM Class WHERE [Name] = 'Shaman'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Avenger''s Greaves'), (SELECT ID FROM Class WHERE [Name] = 'Paladin'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Doomcaller''s Footwraps'), (SELECT ID FROM Class WHERE [Name] = 'Warlock'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Enigma Boots'), (SELECT ID FROM Class WHERE [Name] = 'Mage'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Genesis Boots'), (SELECT ID FROM Class WHERE [Name] = 'Druid'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Stormcaller''s Footguards'), (SELECT ID FROM Class WHERE [Name] = 'Shaman'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Avenger''s Pauldrons'), (SELECT ID FROM Class WHERE [Name] = 'Paladin'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Doomcaller''s Mantle'), (SELECT ID FROM Class WHERE [Name] = 'Warlock'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Enigma Shoulderpads'), (SELECT ID FROM Class WHERE [Name] = 'Mage'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Genesis Shoulderpads'), (SELECT ID FROM Class WHERE [Name] = 'Druid'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Stormcaller''s Pauldrons'), (SELECT ID FROM Class WHERE [Name] = 'Shaman'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Qiraji Bindings of Command'), (SELECT ID FROM Class WHERE [Name] = 'Warrior'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Qiraji Bindings of Command'), (SELECT ID FROM Class WHERE [Name] = 'Rogue'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Qiraji Bindings of Command'), (SELECT ID FROM Class WHERE [Name] = 'Priest'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Qiraji Bindings of Command'), (SELECT ID FROM Class WHERE [Name] = 'Hunter'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Conqueror''s Greaves'), (SELECT ID FROM Class WHERE [Name] = 'Warrior'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Deathdealer''s Boots'), (SELECT ID FROM Class WHERE [Name] = 'Rogue'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Footwraps of the Oracle'), (SELECT ID FROM Class WHERE [Name] = 'Priest'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Striker''s Footguards'), (SELECT ID FROM Class WHERE [Name] = 'Hunter'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Conqueror''s Spaulders'), (SELECT ID FROM Class WHERE [Name] = 'Warrior'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Deathdealer''s Spaulders'), (SELECT ID FROM Class WHERE [Name] = 'Rogue'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Mantle of the Oracle'), (SELECT ID FROM Class WHERE [Name] = 'Priest'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Striker''s Pauldrons'), (SELECT ID FROM Class WHERE [Name] = 'Hunter'))
 
 -- The Prophet Skeram
 INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (21706, 'Boots of the Unwavering Will', 73, (SELECT ID FROM Slot WHERE Name = 'Feet'), 0, NULL)
@@ -582,6 +619,24 @@ INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss W
 INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Twin Emperors'), (SELECT ID FROM Item WHERE Name = 'Grasp of the Fallen Emperor'), 0.23)
 INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Twin Emperors'), (SELECT ID FROM Item WHERE Name = 'Imperial Qiraji Regalia'), 0.16)
 INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Twin Emperors'), (SELECT ID FROM Item WHERE Name = 'Imperial Qiraji Armaments'), 0.16)
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Vek''lor''s Diadem'), (SELECT ID FROM Class WHERE [Name] = 'Paladin'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Vek''lor''s Diadem'), (SELECT ID FROM Class WHERE [Name] = 'Rogue'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Vek''lor''s Diadem'), (SELECT ID FROM Class WHERE [Name] = 'Druid'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Vek''lor''s Diadem'), (SELECT ID FROM Class WHERE [Name] = 'Shaman'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Vek''lor''s Diadem'), (SELECT ID FROM Class WHERE [Name] = 'Hunter'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Avenger''s Crown'), (SELECT ID FROM Class WHERE [Name] = 'Paladin'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Deathdealer''s Helm'), (SELECT ID FROM Class WHERE [Name] = 'Rogue'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Genesis Helm'), (SELECT ID FROM Class WHERE [Name] = 'Druid'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Stormcaller''s Diadem'), (SELECT ID FROM Class WHERE [Name] = 'Shaman'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Striker''s Diadem'), (SELECT ID FROM Class WHERE [Name] = 'Hunter'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Vek''nilash''s Circlet'), (SELECT ID FROM Class WHERE [Name] = 'Warrior'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Vek''nilash''s Circlet'), (SELECT ID FROM Class WHERE [Name] = 'Warlock'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Vek''nilash''s Circlet'), (SELECT ID FROM Class WHERE [Name] = 'Mage'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Vek''nilash''s Circlet'), (SELECT ID FROM Class WHERE [Name] = 'Priest'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Conqueror''s Crown'), (SELECT ID FROM Class WHERE [Name] = 'Warrior'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Doomcaller''s Circlet'), (SELECT ID FROM Class WHERE [Name] = 'Warlock'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Enigma Circlet'), (SELECT ID FROM Class WHERE [Name] = 'Mage'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Tiara of the Oracle'), (SELECT ID FROM Class WHERE [Name] = 'Priest'))
 
 -- Ouro
 INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (20931, 'Skin of the Great Sandworm', NULL, NULL, 1, NULL)
@@ -611,6 +666,24 @@ INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss W
 INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Ouro'), (SELECT ID FROM Item WHERE Name = 'Wormscale Blocker'), 0.19)
 INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Ouro'), (SELECT ID FROM Item WHERE Name = 'Imperial Qiraji Regalia'), 0.12)
 INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Ouro'), (SELECT ID FROM Item WHERE Name = 'Imperial Qiraji Armaments'), 0.08)
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Skin of the Great Sandworm'), (SELECT ID FROM Class WHERE [Name] = 'Paladin'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Skin of the Great Sandworm'), (SELECT ID FROM Class WHERE [Name] = 'Warlock'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Skin of the Great Sandworm'), (SELECT ID FROM Class WHERE [Name] = 'Druid'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Skin of the Great Sandworm'), (SELECT ID FROM Class WHERE [Name] = 'Shaman'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Skin of the Great Sandworm'), (SELECT ID FROM Class WHERE [Name] = 'Hunter'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Avenger''s Legguards'), (SELECT ID FROM Class WHERE [Name] = 'Paladin'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Doomcaller''s Trousers'), (SELECT ID FROM Class WHERE [Name] = 'Warlock'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Genesis Trousers'), (SELECT ID FROM Class WHERE [Name] = 'Druid'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Stormcaller''s Leggings'), (SELECT ID FROM Class WHERE [Name] = 'Shaman'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Striker''s Leggings'), (SELECT ID FROM Class WHERE [Name] = 'Hunter'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Ouro''s Intact Hide'), (SELECT ID FROM Class WHERE [Name] = 'Warrior'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Ouro''s Intact Hide'), (SELECT ID FROM Class WHERE [Name] = 'Rogue'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Ouro''s Intact Hide'), (SELECT ID FROM Class WHERE [Name] = 'Mage'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Ouro''s Intact Hide'), (SELECT ID FROM Class WHERE [Name] = 'Priest'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Conqueror''s Legguards'), (SELECT ID FROM Class WHERE [Name] = 'Warrior'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Deathdealer''s Leggings'), (SELECT ID FROM Class WHERE [Name] = 'Rogue'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Enigma Leggings'), (SELECT ID FROM Class WHERE [Name] = 'Mage'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Trousers of the Oracle'), (SELECT ID FROM Class WHERE [Name] = 'Priest'))
 
 -- C'Thun
 INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (21221, 'Eye of C''Thun', NULL, NULL, 1, NULL)
@@ -657,55 +730,113 @@ INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss W
 INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'C''Thun'), (SELECT ID FROM Item WHERE Name = 'Scepter of the False Prophet'), 0.20)
 INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'C''Thun'), (SELECT ID FROM Item WHERE Name = 'Dark Edge of Insanity'), 0.13)
 INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'C''Thun'), (SELECT ID FROM Item WHERE Name = 'Death''s Sting'), 0.11)
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Husk of the Old God'), (SELECT ID FROM Class WHERE [Name] = 'Warlock'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Husk of the Old God'), (SELECT ID FROM Class WHERE [Name] = 'Mage'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Husk of the Old God'), (SELECT ID FROM Class WHERE [Name] = 'Druid'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Husk of the Old God'), (SELECT ID FROM Class WHERE [Name] = 'Priest'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Doomcaller''s Robes'), (SELECT ID FROM Class WHERE [Name] = 'Warlock'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Enigma Robes'), (SELECT ID FROM Class WHERE [Name] = 'Mage'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Genesis Vest'), (SELECT ID FROM Class WHERE [Name] = 'Druid'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Vestments of the Oracle'), (SELECT ID FROM Class WHERE [Name] = 'Priest'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Carapace of the Old God'), (SELECT ID FROM Class WHERE [Name] = 'Paladin'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Carapace of the Old God'), (SELECT ID FROM Class WHERE [Name] = 'Warrior'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Carapace of the Old God'), (SELECT ID FROM Class WHERE [Name] = 'Rogue'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Carapace of the Old God'), (SELECT ID FROM Class WHERE [Name] = 'Shaman'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Carapace of the Old God'), (SELECT ID FROM Class WHERE [Name] = 'Hunter'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Avenger''s Breastplate'), (SELECT ID FROM Class WHERE [Name] = 'Paladin'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Conqueror''s Breastplate'), (SELECT ID FROM Class WHERE [Name] = 'Warrior'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Deathdealer''s Vest'), (SELECT ID FROM Class WHERE [Name] = 'Rogue'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Stormcaller''s Hauberk'), (SELECT ID FROM Class WHERE [Name] = 'Shaman'))
+INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Striker''s Hauberk'), (SELECT ID FROM Class WHERE [Name] = 'Hunter'))
 
 
 --INSERT INTO ItemClassWeight (ItemID, ClassID, Weight) VALUES ((SELECT ID FROM Item WHERE Name = 'Ring of the Fallen God'), (SELECT ID FROM Class WHERE Name = 'Mage'), 1.0)
 --INSERT INTO ItemClassWeight (ItemID, ClassID, Weight) VALUES ((SELECT ID FROM Item WHERE Name = 'Ring of the Fallen God'), (SELECT ID FROM Class WHERE Name = 'Warlock'), 1.2)
 
 
-SELECT * FROM (
-SELECT 
-	i.ID ItemID,
-	i.Name Item, 
-	i.Level ItemLevel, 
-	s.Name Slot, 
-	CASE 
-		WHEN r.Name IS NULL THEN r2.Name
-		ELSE r.Name
-	END Raid, 
-	CASE 
-		WHEN b.ID IS NULL THEN b2.ID
-		ELSE b.ID
-	END BossID, 
-	CASE 
-		WHEN b.Name IS NULL THEN b2.Name
-		ELSE b.Name
-	END Boss, 
-	CASE 
-		WHEN bl.DropChance IS NULL THEN bl2.DropChance-- / (SELECT COUNT(*) FROM Item WHERE IsQuestItem = 0 AND RewardFromQuestItem = i2.ID)
-		ELSE bl.DropChance
-	END DropChance
-FROM Item i
-LEFT JOIN Slot s
-ON i.SlotID = s.ID
-LEFT JOIN Item i2
-ON i.RewardFromQuestItem = i2.ID AND i2.IsQuestItem = 1
-LEFT JOIN BossLoot bl
-ON bl.ItemID = i.ID
-LEFT JOIN Boss b
-ON b.ID = bl.BossID
-LEFT JOIN Raid r
-ON b.RaidID = r.ID
-LEFT JOIN BossLoot bl2
-ON bl2.ItemID = i2.ID
-LEFT JOIN Boss b2
-ON b2.ID = bl2.BossID
-LEFT JOIN Raid r2
-ON b2.RaidID = r2.ID
-WHERE i.IsQuestItem = 0) a
-ORDER BY Raid ASC, BossID ASC, DropChance DESC
+--SELECT * FROM (
+--SELECT 
+--	i.ID ItemID,
+--	i.Name Item, 
+--	i.Level ItemLevel, 
+--	s.Name Slot, 
+--	CASE 
+--		WHEN r.Name IS NULL THEN r2.Name
+--		ELSE r.Name
+--	END Raid, 
+--	CASE 
+--		WHEN b.ID IS NULL THEN b2.ID
+--		ELSE b.ID
+--	END BossID, 
+--	CASE 
+--		WHEN b.Name IS NULL THEN b2.Name
+--		ELSE b.Name
+--	END Boss, 
+--	CASE 
+--		WHEN bl.DropChance IS NULL THEN bl2.DropChance-- / (SELECT COUNT(*) FROM Item WHERE IsQuestItem = 0 AND RewardFromQuestItem = i2.ID)
+--		ELSE bl.DropChance
+--	END DropChance
+--FROM Item i
+--LEFT JOIN Slot s
+--ON i.SlotID = s.ID
+--LEFT JOIN Item i2
+--ON i.RewardFromQuestItem = i2.ID AND i2.IsQuestItem = 1
+--LEFT JOIN BossLoot bl
+--ON bl.ItemID = i.ID
+--LEFT JOIN Boss b
+--ON b.ID = bl.BossID
+--LEFT JOIN Raid r
+--ON b.RaidID = r.ID
+--LEFT JOIN BossLoot bl2
+--ON bl2.ItemID = i2.ID
+--LEFT JOIN Boss b2
+--ON b2.ID = bl2.BossID
+--LEFT JOIN Raid r2
+--ON b2.RaidID = r2.ID
+--WHERE i.IsQuestItem = 0) a
+--ORDER BY Raid ASC, BossID ASC, DropChance DESC
 
 
+--SELECT COUNT(i.ID), c.Name
+--FROM Item i
+--LEFT JOIN ItemClass ic
+--ON ic.ItemID = i.ID
+--LEFT JOIN Class c
+--ON c.ID = ic.ClassID
+--GROUP BY c.Name
+
+
+--INSERT INTO CharacterLoot (CharacterID, ItemID, [Date]) VALUES ((SELECT ID FROM [Character] WHERE [Name] = 'Zoey'), (SELECT ID FROM Item WHERE [Name] = 'Boots of Epiphany'), '2020-08-24')
+--INSERT INTO CharacterLoot (CharacterID, ItemID, [Date]) VALUES ((SELECT ID FROM [Character] WHERE [Name] = 'Zoey'), (SELECT ID FROM Item WHERE [Name] = 'Vek''nilash''s Circlet'), '2020-09-23')
+--INSERT INTO CharacterLoot (CharacterID, ItemID, [Date]) VALUES ((SELECT ID FROM [Character] WHERE [Name] = 'Zoey'), (SELECT ID FROM Item WHERE [Name] = 'Eye of C''Thun'), '2020-09-30')
+--INSERT INTO CharacterLoot (CharacterID, ItemID, [Date]) VALUES ((SELECT ID FROM [Character] WHERE [Name] = 'Zoey'), (SELECT ID FROM Item WHERE [Name] = 'Qiraji Bindings of Dominance'), '2020-09-30')
+
+
+--SELECT
+--	c.[Name] [Character], 
+--	cla.[Name] Class, 
+--	CASE 
+--		WHEN i2.ID IS NULL THEN i.[Name]
+--		ELSE i2.[Name]
+--	END Item, 
+--	cl.[Date]
+--FROM CharacterLoot cl
+--LEFT JOIN Item i
+--ON cl.ItemID = i.ID
+--LEFT JOIN Slot s
+--ON i.SlotID = s.ID
+--LEFT JOIN Item i2
+--ON i2.RewardFromQuestItem = i.ID
+--LEFT JOIN [Character] c
+--ON c.ID = cl.CharacterID
+--LEFT JOIN Class cla
+--ON cla.ID = c.ClassID
+--LEFT JOIN ItemClass ic
+--ON ic.ItemID = i.ID AND ic.ClassID = cla.ID
+--LEFT JOIN ItemClass ic2
+--ON ic2.ItemID = i2.ID
+--WHERE ((ic.ID IS NULL OR cla.ID = ic.ClassID) AND i.IsQuestItem = 0) OR ((ic2.ID IS NULL OR cla.ID = ic2.ClassID) AND i.IsQuestItem = 1)
+--ORDER BY cla.[Name] ASC, c.[Name] ASC, cl.[Date] ASC
 
 
 
