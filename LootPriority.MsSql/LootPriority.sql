@@ -249,7 +249,7 @@ CREATE TABLE SlotClassWeight (
 
 CREATE TABLE Item (
 	ID INT PRIMARY KEY IDENTITY (1, 1),
-	Name VARCHAR(100) NOT NULL,
+	Name VARCHAR(100) NOT NULL UNIQUE,
 	Level INT NULL,
 	SlotID INT NULL,
 	IsQuestItem BIT NOT NULL,
@@ -265,6 +265,15 @@ CREATE TABLE ItemClassWeight (
 	Weight FLOAT NOT NULL,
 	FOREIGN KEY (ItemID) REFERENCES Item (ID),
 	FOREIGN KEY (ClassID) REFERENCES Class (ID),
+)
+
+CREATE TABLE BossLoot (
+	ID INT PRIMARY KEY IDENTITY (1, 1),
+	BossID INT NOT NULL,
+	ItemID INT NOT NULL,
+	DropChance FLOAT NOT NULL,
+	FOREIGN KEY (BossID) REFERENCES Boss (ID),
+	FOREIGN KEY (ItemID) REFERENCES Item (ID),
 )
 
 
@@ -285,7 +294,6 @@ INSERT INTO Slot (Name) VALUES ('Two Hand')
 INSERT INTO Slot (Name) VALUES ('Main Hand')
 INSERT INTO Slot (Name) VALUES ('Off Hand')
 INSERT INTO Slot (Name) VALUES ('Ranged')
-
 INSERT INTO SlotClassWeight (SlotID, ClassID, Weight) VALUES ((SELECT ID FROM Slot WHERE Name = 'Head'), (SELECT ID FROM Class WHERE Name = 'Mage'), 1.0)
 INSERT INTO SlotClassWeight (SlotID, ClassID, Weight) VALUES ((SELECT ID FROM Slot WHERE Name = 'Neck'), (SELECT ID FROM Class WHERE Name = 'Mage'), 0.75)
 INSERT INTO SlotClassWeight (SlotID, ClassID, Weight) VALUES ((SELECT ID FROM Slot WHERE Name = 'Shoulders'), (SELECT ID FROM Class WHERE Name = 'Mage'), 0.75)
@@ -321,22 +329,88 @@ INSERT INTO SlotClassWeight (SlotID, ClassID, Weight) VALUES ((SELECT ID FROM Sl
 INSERT INTO SlotClassWeight (SlotID, ClassID, Weight) VALUES ((SELECT ID FROM Slot WHERE Name = 'Off Hand'), (SELECT ID FROM Class WHERE Name = 'Warlock'), 0.75)
 INSERT INTO SlotClassWeight (SlotID, ClassID, Weight) VALUES ((SELECT ID FROM Slot WHERE Name = 'Ranged'), (SELECT ID FROM Class WHERE Name = 'Warlock'), 0.25)
 
+INSERT INTO Item (Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES ('Sharpened Silithid Femur', 78, (SELECT ID FROM Slot WHERE Name = 'Main Hand'), 0, NULL)
 INSERT INTO Item (Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES ('Eye of C''Thun', NULL, NULL, 1, NULL)
 INSERT INTO Item (Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES ('Ring of the Fallen God', 88, (SELECT ID FROM Slot WHERE Name = 'Finger'), 0, (SELECT ID FROM Item WHERE Name = 'Eye of C''Thun'))
+INSERT INTO Item (Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES ('Husk of the Old God', NULL, NULL, 1, NULL)
+INSERT INTO Item (Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES ('Doomcaller''s Robes', 88, (SELECT ID FROM Slot WHERE Name = 'Chest'), 0, (SELECT ID FROM Item WHERE Name = 'Husk of the Old God'))
+INSERT INTO Item (Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES ('Enigma Robes', 88, (SELECT ID FROM Slot WHERE Name = 'Chest'), 0, (SELECT ID FROM Item WHERE Name = 'Husk of the Old God'))
+INSERT INTO Item (Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES ('Genesis Vest', 88, (SELECT ID FROM Slot WHERE Name = 'Chest'), 0, (SELECT ID FROM Item WHERE Name = 'Husk of the Old God'))
+INSERT INTO Item (Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES ('Vestments of the Oracle', 88, (SELECT ID FROM Slot WHERE Name = 'Chest'), 0, (SELECT ID FROM Item WHERE Name = 'Husk of the Old God'))
+INSERT INTO Item (Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES ('Carapace of the Old God', NULL, NULL, 1, NULL)
+INSERT INTO Item (Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES ('Avenger''s Breastplate', 88, (SELECT ID FROM Slot WHERE Name = 'Chest'), 0, (SELECT ID FROM Item WHERE Name = 'Carapace of the Old God'))
+INSERT INTO Item (Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES ('Conqueror''s Breastplate', 88, (SELECT ID FROM Slot WHERE Name = 'Chest'), 0, (SELECT ID FROM Item WHERE Name = 'Carapace of the Old God'))
+INSERT INTO Item (Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES ('Deathdealer''s Vest', 88, (SELECT ID FROM Slot WHERE Name = 'Chest'), 0, (SELECT ID FROM Item WHERE Name = 'Carapace of the Old God'))
+INSERT INTO Item (Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES ('Stormcaller''s Hauberk', 88, (SELECT ID FROM Slot WHERE Name = 'Chest'), 0, (SELECT ID FROM Item WHERE Name = 'Carapace of the Old God'))
+INSERT INTO Item (Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES ('Striker''s Hauberk', 88, (SELECT ID FROM Slot WHERE Name = 'Chest'), 0, (SELECT ID FROM Item WHERE Name = 'Carapace of the Old God'))
+INSERT INTO Item (Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES ('Cloak of Clarity', 88, (SELECT ID FROM Slot WHERE Name = 'Back'), 0, NULL)
+INSERT INTO Item (Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES ('Eyestalk Waist Cord', 88, (SELECT ID FROM Slot WHERE Name = 'Waist'), 0, NULL)
+INSERT INTO Item (Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES ('Gauntlets of Annihilation', 88, (SELECT ID FROM Slot WHERE Name = 'Hands'), 0, NULL)
+INSERT INTO Item (Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES ('Ring of the Godslayer', 88, (SELECT ID FROM Slot WHERE Name = 'Finger'), 0, NULL)
+INSERT INTO Item (Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES ('Cloak of the Devoured', 88, (SELECT ID FROM Slot WHERE Name = 'Back'), 0, NULL)
+INSERT INTO Item (Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES ('Mark of C''Thun', 88, (SELECT ID FROM Slot WHERE Name = 'Neck'), 0, NULL)
+INSERT INTO Item (Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES ('Dark Storm Gauntlets', 88, (SELECT ID FROM Slot WHERE Name = 'Hands'), 0, NULL)
+INSERT INTO Item (Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES ('Grasp of the Old God', 88, (SELECT ID FROM Slot WHERE Name = 'Waist'), 0, NULL)
+INSERT INTO Item (Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES ('Belt of Never-ending Agony', 88, (SELECT ID FROM Slot WHERE Name = 'Waist'), 0, NULL)
+INSERT INTO Item (Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES ('Vanquished Tentacle of C''Thun', 88, (SELECT ID FROM Slot WHERE Name = 'Trinket'), 0, NULL)
+INSERT INTO Item (Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES ('Scepter of the False Prophet', 84, (SELECT ID FROM Slot WHERE Name = 'Main Hand'), 0, NULL)
+INSERT INTO Item (Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES ('Dark Edge of Insanity', 84, (SELECT ID FROM Slot WHERE Name = 'Two Hand'), 0, NULL)
+INSERT INTO Item (Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES ('Death''s Sting', 84, (SELECT ID FROM Slot WHERE Name = 'One Hand'), 0, NULL)
 
 INSERT INTO ItemClassWeight (ItemID, ClassID, Weight) VALUES ((SELECT ID FROM Item WHERE Name = 'Ring of the Fallen God'), (SELECT ID FROM Class WHERE Name = 'Mage'), 1.0)
 INSERT INTO ItemClassWeight (ItemID, ClassID, Weight) VALUES ((SELECT ID FROM Item WHERE Name = 'Ring of the Fallen God'), (SELECT ID FROM Class WHERE Name = 'Warlock'), 1.2)
 
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Viscidus'), (SELECT ID FROM Item WHERE Name = 'Sharpened Silithid Femur'), 0.22)
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'C''Thun'), (SELECT ID FROM Item WHERE Name = 'Eye of C''Thun'), 1.0)
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'C''Thun'), (SELECT ID FROM Item WHERE Name = 'Husk of the Old God'), 1.0)
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'C''Thun'), (SELECT ID FROM Item WHERE Name = 'Carapace of the Old God'), 1.0)
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'C''Thun'), (SELECT ID FROM Item WHERE Name = 'Cloak of Clarity'), 0.37)
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'C''Thun'), (SELECT ID FROM Item WHERE Name = 'Eyestalk Waist Cord'), 0.37)
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'C''Thun'), (SELECT ID FROM Item WHERE Name = 'Gauntlets of Annihilation'), 0.35)
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'C''Thun'), (SELECT ID FROM Item WHERE Name = 'Ring of the Godslayer'), 0.35)
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'C''Thun'), (SELECT ID FROM Item WHERE Name = 'Cloak of the Devoured'), 0.32)
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'C''Thun'), (SELECT ID FROM Item WHERE Name = 'Mark of C''Thun'), 0.31)
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'C''Thun'), (SELECT ID FROM Item WHERE Name = 'Dark Storm Gauntlets'), 0.30)
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'C''Thun'), (SELECT ID FROM Item WHERE Name = 'Grasp of the Old God'), 0.25)
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'C''Thun'), (SELECT ID FROM Item WHERE Name = 'Belt of Never-ending Agony'), 0.24)
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'C''Thun'), (SELECT ID FROM Item WHERE Name = 'Vanquished Tentacle of C''Thun'), 0.22)
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'C''Thun'), (SELECT ID FROM Item WHERE Name = 'Scepter of the False Prophet'), 0.20)
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'C''Thun'), (SELECT ID FROM Item WHERE Name = 'Dark Edge of Insanity'), 0.13)
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'C''Thun'), (SELECT ID FROM Item WHERE Name = 'Death''s Sting'), 0.11)
 
-SELECT i.Name, i.Level, s.Name, i.IsQuestItem, i2.Name, c.Name, scw.Weight SlotWeight, icw.Weight ClassWeight
+SELECT * FROM (
+SELECT 
+	i.Name Item, 
+	i.Level ItemLevel, 
+	s.Name Slot, 
+	CASE 
+		WHEN r.Name IS NULL THEN r2.Name
+		ELSE r.Name
+	END Raid, 
+	CASE 
+		WHEN b.Name IS NULL THEN b2.Name
+		ELSE b.Name
+	END Boss, 
+	CASE 
+		WHEN bl.DropChance IS NULL THEN bl2.DropChance
+		ELSE bl.DropChance
+	END DropChance
 FROM Item i
 LEFT JOIN Slot s
 ON i.SlotID = s.ID
 LEFT JOIN Item i2
-ON i.RewardFromQuestItem = i2.ID
-LEFT JOIN SlotClassWeight scw
-ON scw.SlotID = s.ID
-LEFT JOIN Class c
-ON c.ID = scw.ClassID
-LEFT JOIN ItemClassWeight icw
-ON icw.ItemID = i.ID AND c.ID = icw.ClassID
+ON i.RewardFromQuestItem = i2.ID AND i2.IsQuestItem = 1
+LEFT JOIN BossLoot bl
+ON bl.ItemID = i.ID
+LEFT JOIN Boss b
+ON b.ID = bl.BossID
+LEFT JOIN Raid r
+ON b.RaidID = r.ID
+LEFT JOIN BossLoot bl2
+ON bl2.ItemID = i2.ID
+LEFT JOIN Boss b2
+ON b2.ID = bl2.BossID
+LEFT JOIN Raid r2
+ON b2.RaidID = r2.ID
+WHERE i.IsQuestItem = 0) a
+ORDER BY Raid ASC, Boss ASC, Item ASC
