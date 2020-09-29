@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LootPriority.ConsoleApp", "LootPriority.ConsoleApp\LootPriority.ConsoleApp.csproj", "{4551EBA7-D9ED-437E-960A-2446793A2926}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LootPriority.Core", "LootPriority.Core\LootPriority.Core.csproj", "{8C5E2681-DCEE-48B3-8F6B-54D71DEC1B60}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LootPriority.Persistence", "LootPriority.Persistence\LootPriority.Persistence.csproj", "{7F1D2AE0-2448-4084-9A9A-6140CD533238}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{4551EBA7-D9ED-437E-960A-2446793A2926}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4551EBA7-D9ED-437E-960A-2446793A2926}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4551EBA7-D9ED-437E-960A-2446793A2926}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C5E2681-DCEE-48B3-8F6B-54D71DEC1B60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C5E2681-DCEE-48B3-8F6B-54D71DEC1B60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C5E2681-DCEE-48B3-8F6B-54D71DEC1B60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C5E2681-DCEE-48B3-8F6B-54D71DEC1B60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F1D2AE0-2448-4084-9A9A-6140CD533238}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F1D2AE0-2448-4084-9A9A-6140CD533238}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F1D2AE0-2448-4084-9A9A-6140CD533238}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F1D2AE0-2448-4084-9A9A-6140CD533238}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
