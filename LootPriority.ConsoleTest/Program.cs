@@ -13,6 +13,10 @@ namespace LootPriority.ConsoleTest
             foreach (var player in players)
             {
                 Console.WriteLine(player.Nickname);
+                foreach (var character in player.Characters)
+                {
+                    Console.WriteLine("\t" + character.Name);
+                }
             }
 
             Console.ReadKey();
