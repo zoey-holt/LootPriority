@@ -1,7 +1,7 @@
 ﻿using LootPriority.Core.Interface;
 using LootPriority.Core.Model;
-using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 
 namespace LootPriority.Persistence
 {
@@ -9,7 +9,24 @@ namespace LootPriority.Persistence
     {
         public List<Player> GetPlayers()
         {
-            throw new NotImplementedException();
+            var players = new List<Player>();
+            using (SqlConnection connection = new SqlConnection("Server=.\\SQLEXPRESS;Initial Catalog=LootPriority;Integrated Security=true;"))
+            {
+                SqlCommand command = new SqlCommand("SELECT * FROM Player", connection);
+                connection.Open();
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        players.Add(new Player {
+                            Id = (int)reader[0],
+                            Nickname = (string)reader[1],
+                            Characters = new List<Character>(),
+                        });
+                    }
+                }
+            }
+            return players;
         }
     }
 }
