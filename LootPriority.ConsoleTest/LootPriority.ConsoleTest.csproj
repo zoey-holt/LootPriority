@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LootPriority.ConsoleApp\LootPriority.ConsoleApp.csproj" />
     <ProjectReference Include="..\LootPriority.Core\LootPriority.Core.csproj" />
     <ProjectReference Include="..\LootPriority.Persistence\LootPriority.Persistence.csproj" />
   </ItemGroup>

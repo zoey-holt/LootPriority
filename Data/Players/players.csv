@@ -14,9 +14,11 @@ ID,Name,Class,IsMain,Attitude
 10,Shagy,Warrior,True
 11,Quel,Warrior,True
 12,Korsen,Warrior,True
+12,Blacklace,Rogue,False
 13,Lahk,Warlock,True
 14,Nymh,Mage,True
 15,Gutterz,Warrior,True
+15,Gutterx,Mage,False
 16,Chameleon,Warlock,True
 17,Saeros,Rogue,True
 18,Fourtywinks,Rogue,True
@@ -30,6 +32,7 @@ ID,Name,Class,IsMain,Attitude
 23,Némsy,Paladin,False
 24,Catto,Warrior,True
 25,Faith,Hunter,True
+25,Faithfortis,Warrior,False
 26,Ramzergutzin,Warrior,True
 27,Gatzby,Mage,False
 27,Catzby,Hunter,True
@@ -38,11 +41,14 @@ ID,Name,Class,IsMain,Attitude
 30,Xinrokh,Priest,True
 31,Estaris,Druid,True
 32,Aconites,Druid,True
+32,Lorianne,Paladin,False
 33,Retributus,Paladin,True
 34,Faeron,Priest,True
 35,Ismaela,Paladin,True
 36,Doomkon,Paladin,True
+36,Doomkhan,Druid,False
 37,Jahlia,Priest,True
+37,Kahleia,Mage,False
 38,Mkomacine,Priest,True
 39,Ðëv,Paladin,True
 40,Tate,Priest,True

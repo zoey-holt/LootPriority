@@ -13,7 +13,7 @@ namespace LootPriority.Persistence
         public List<Player> GetPlayers()
         {
             var players = new Dictionary<int, Player>();
-            using (SqlConnection connection = new SqlConnection("Server=.\\SQLEXPRESS;Initial Catalog=LootPriority;Integrated Security=true;"))
+            using (SqlConnection connection = new SqlConnection(SqlHelper.connectionString))
             {
                 string query =
                     "SELECT p.ID, p.Nickname, c.ID, c.Name, cl.Name, t.Name, r.Name " +
@@ -63,6 +63,38 @@ namespace LootPriority.Persistence
                 }
             }
             return players.Values.ToList();
+        }
+
+        public void AddPlayers(List<Player> players)
+        {
+            using (SqlConnection connection = new SqlConnection(SqlHelper.connectionString))
+            {
+                connection.Open();
+                foreach (var player in players)
+                {
+                    string playerQuery = $"INSERT INTO Player (Nickname) VALUES (@nickname); SELECT SCOPE_IDENTITY()";
+                    SqlCommand playerCommand = new SqlCommand(playerQuery, connection);
+                    playerCommand.Parameters.AddWithValue("@nickname", (object)player.Nickname ?? DBNull.Value);
+                    player.Id = decimal.ToInt32((decimal)playerCommand.ExecuteScalar());
+                    foreach (var character in player.Characters)
+                    {
+                        string characterQuery = 
+                            $"INSERT INTO Character (Name, PlayerID, ClassID, TeamID, RealmID) " +
+                            $"VALUES (@name, @playerID, " +
+                            $"(SELECT ID FROM Class WHERE Name = @class), " +
+                            $"(SELECT ID FROM Team WHERE Name = @team), " +
+                            $"(SELECT ID FROM Realm WHERE Name = @realm)); " +
+                            $"SELECT SCOPE_IDENTITY()";
+                        SqlCommand characterCommand = new SqlCommand(characterQuery, connection);
+                        characterCommand.Parameters.AddWithValue("@name", character.Name);
+                        characterCommand.Parameters.AddWithValue("@playerID", player.Id);
+                        characterCommand.Parameters.AddWithValue("@class", character.Class.ToString());
+                        characterCommand.Parameters.AddWithValue("@team", (object)character.Team ?? DBNull.Value);
+                        characterCommand.Parameters.AddWithValue("@realm", character.Realm);
+                        character.Id = decimal.ToInt32((decimal)characterCommand.ExecuteScalar());
+                    }
+                }
+            }
         }
     }
 }

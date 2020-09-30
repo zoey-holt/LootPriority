@@ -71,6 +71,8 @@ INSERT INTO Realm (Name) VALUES ('Grobbulus')
 --INSERT INTO Character (Name, PlayerID, ClassID, TeamID, RealmID) VALUES ( 'Parabella',  (SELECT ID FROM Player WHERE Nickname = 'Bella'), (SELECT ID FROM Class WHERE Name = 'Rogue'), (SELECT ID FROM Team WHERE Name = 'ENCORE Purple'), (SELECT ID FROM Realm WHERE Name = 'Grobbulus'))
 --INSERT INTO Character (Name, PlayerID, ClassID, TeamID, RealmID) VALUES ( 'Bellafrost',  (SELECT ID FROM Player WHERE Nickname = 'Bella'), (SELECT ID FROM Class WHERE Name = 'Mage'), NULL, (SELECT ID FROM Realm WHERE Name = 'Grobbulus'))
 
+--DELETE FROM Character
+--DELETE FROM Player
 
 --SELECT p.ID PlayerID, p.Nickname Player, c.Name Character, cl.Name Class, t.Name Team, r.Name Realm
 --FROM Player p

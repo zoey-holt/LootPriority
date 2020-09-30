@@ -56,7 +56,7 @@ namespace LootPriority.ConsoleApp
             foreach (var player in players.Values)
             {
                 player.Attendance = logs
-                    .Where(l => l.Date >= attendanceFromDate)
+                    .Where(l => l.Date >= attendanceFromDate || attendanceFromDate == null)
                     .Select(l => l.Parses.Any(p => player.Characters.Any(c => c.Name == p.Key)) ? 1 : 0)
                     .Average();
                 var performances = logs

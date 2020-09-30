@@ -6,5 +6,6 @@ namespace LootPriority.Core.Interface
     public interface IPlayerRepository
     {
         List<Player> GetPlayers();
+        void AddPlayers(List<Player> players);
     }
 }
