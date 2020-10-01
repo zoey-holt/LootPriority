@@ -9,6 +9,7 @@ ID,Name,Class,IsMain,Attitude
 5,Effective,Warrior,True
 6,Hereticbabe,Warrior,True
 7,Scyter,Rogue,True
+7,Saiter,Mage,False
 8,Backstaber,Rogue,True
 9,Ezpk,Hunter,True
 10,Shagy,Warrior,True
@@ -41,6 +42,7 @@ ID,Name,Class,IsMain,Attitude
 30,Xinrokh,Priest,True
 31,Estaris,Druid,True
 32,Aconites,Druid,True
+32,Cbeastwood,Hunter,False
 32,Lorianne,Paladin,False
 33,Retributus,Paladin,True
 34,Faeron,Priest,True

@@ -1,4 +1,5 @@
 ﻿using LootPriority.Core.Model;
+using System.Collections.Generic;
 
 namespace LootPriority.Core.Interface
 {
@@ -6,5 +7,6 @@ namespace LootPriority.Core.Interface
     {
         Item GetItem(int id);
         Item GetItem(string name);
+        List<Item> GetItems();
     }
 }

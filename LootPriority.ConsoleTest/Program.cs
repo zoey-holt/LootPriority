@@ -14,12 +14,18 @@ namespace LootPriority.ConsoleTest
             AddPlayersFromFile(playerRepo);
             PrintPlayers(playerRepo);
 
+            var itemRepo = new ItemRepository();
+            PrintItems(itemRepo);
+
             Console.ReadKey();
         }
 
         private static void AddPlayersFromFile(PlayerRepository playerRepo)
         {
-            playerRepo.AddPlayers(ConsoleApp.PlayerDb.LoadPlayers().Select(p =>
+            var dbPlayers = playerRepo.GetPlayers();
+            var dbPlayerNames = dbPlayers.Select(p => p.Nickname).ToList();
+            var dbCharacterNames = dbPlayers.SelectMany(p => p.Characters.Select(c => c.Name)).ToList();
+            var filePlayers = ConsoleApp.PlayerDb.LoadPlayers().Select(p =>
                 new Player
                 {
                     Nickname = p.Main.Name,
@@ -29,11 +35,12 @@ namespace LootPriority.ConsoleTest
                             Name = c.Name,
                             Class = (CharacterClass)Enum.Parse(typeof(CharacterClass), c.Class.ToString()),
                             Realm = "Grobbulus",
-                            Team = "ENCORE Purple",
+                            Team = c.IsMain ? "ENCORE Purple" : null,
                         }
-                    ).ToList()
+                    ).Where(c => !dbCharacterNames.Contains(c.Name)).ToList()
                 }
-            ).ToList());
+            ).Where(p => !dbPlayerNames.Contains(p.Nickname)).ToList();
+            if (filePlayers.Any()) playerRepo.AddPlayers(filePlayers);
         }
 
         private static void PrintPlayers(PlayerRepository playerRepo)
@@ -46,6 +53,15 @@ namespace LootPriority.ConsoleTest
                 {
                     Console.WriteLine("\t" + character.Name);
                 }
+            }
+        }
+
+        private static void PrintItems(ItemRepository itemRepo)
+        {
+            var items = itemRepo.GetItems();
+            foreach (var item in items)
+            {
+                Console.WriteLine(item.Id + "\t" + item.QuestRewards.Count.ToString() + "\t" + item.Name);
             }
         }
     }

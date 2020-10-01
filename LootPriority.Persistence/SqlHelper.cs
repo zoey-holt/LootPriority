@@ -14,7 +14,12 @@ namespace LootPriority.Persistence
 
         public static T GetEnum<T>(this IDataRecord record, int i) where T : struct
         {
-            return (T)Enum.Parse(typeof(T), (string)record[i]);
+            return (T)Enum.Parse(typeof(T), ((string)record[i]).Replace("-", "").Replace(" ", ""));
+        }
+
+        public static int GetInt32Nullable(this IDataRecord record, int i)
+        {
+            return record.IsDBNull(i) ? 0 : (int)record[i];
         }
     }
 }
