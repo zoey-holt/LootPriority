@@ -156,7 +156,7 @@ INSERT INTO Boss (Name, RaidID) VALUES ('Garr', (SELECT ID FROM Raid WHERE Name 
 INSERT INTO Boss (Name, RaidID) VALUES ('Baron Geddon', (SELECT ID FROM Raid WHERE Name = 'Molten Core'))
 INSERT INTO Boss (Name, RaidID) VALUES ('Shazzrah', (SELECT ID FROM Raid WHERE Name = 'Molten Core'))
 INSERT INTO Boss (Name, RaidID) VALUES ('Sulfuron Harbinger', (SELECT ID FROM Raid WHERE Name = 'Molten Core'))
-INSERT INTO Boss (Name, RaidID) VALUES ('Golemag the Incinerator', (SELECT ID FROM Raid WHERE Name = 'Molten Core'))
+INSERT INTO Boss (Name, RaidID) VALUES ('Golemagg the Incinerator', (SELECT ID FROM Raid WHERE Name = 'Molten Core'))
 INSERT INTO Boss (Name, RaidID) VALUES ('Majordomo Executus', (SELECT ID FROM Raid WHERE Name = 'Molten Core'))
 INSERT INTO Boss (Name, RaidID) VALUES ('Ragnaros', (SELECT ID FROM Raid WHERE Name = 'Molten Core'))
 INSERT INTO Boss (Name, RaidID) VALUES ('Trash', (SELECT ID FROM Raid WHERE Name = 'Blackwing Lair'))
@@ -799,24 +799,24 @@ INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name
 --WHERE i.IsQuestItem = 0) a
 --ORDER BY Raid ASC, BossID ASC, DropChance DESC
 
-SELECT 
-	i.ID,
-	i.Name, 
-	i.Level, 
-	s.Name Slot, 
-	i.IsQuestItem,
-	c.Name Class,
-	i2.ID QuestRewardID
-FROM Item i
-LEFT JOIN Slot s
-ON i.SlotID = s.ID
-LEFT JOIN ItemClass ic
-ON ic.ItemID = i.ID
-LEFT JOIN Class c
-ON c.ID = ic.ClassID
-LEFT JOIN Item i2
-ON i.ID = i2.RewardFromQuestItem
-ORDER BY i.IsQuestItem ASC
+--SELECT 
+--	i.ID,
+--	i.Name, 
+--	i.Level, 
+--	s.Name Slot, 
+--	i.IsQuestItem,
+--	c.Name Class,
+--	i2.ID QuestRewardID
+--FROM Item i
+--LEFT JOIN Slot s
+--ON i.SlotID = s.ID
+--LEFT JOIN ItemClass ic
+--ON ic.ItemID = i.ID
+--LEFT JOIN Class c
+--ON c.ID = ic.ClassID
+--LEFT JOIN Item i2
+--ON i.ID = i2.RewardFromQuestItem
+--ORDER BY i.IsQuestItem ASC
 
 
 --SELECT COUNT(i.ID) ItemCount, c.Name
