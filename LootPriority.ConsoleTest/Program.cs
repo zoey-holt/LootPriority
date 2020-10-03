@@ -5,6 +5,7 @@ using LootPriority.Core.Enum;
 using System.Linq;
 using System.Collections.Generic;
 using Flurl.Http;
+using Newtonsoft.Json.Linq;
 
 namespace LootPriority.ConsoleTest
 {
@@ -19,50 +20,50 @@ namespace LootPriority.ConsoleTest
             //var itemRepo = new ItemRepository();
             //PrintItems(itemRepo.GetItems());
 
-            var bossIds = new Dictionary<string, string>
+            var bossIds = new Dictionary<string, string[]>
             {
-                { "Lucifron", "12118" },
-                { "Magmadar", "11982" },
-                { "Gehennas", "12259" },
-                { "Garr", "12057" },
-                { "Baron Geddon", "12056" },
-                { "Shazzrah", "12264" },
-                { "Sulfuron Harbinger", "12098" },
-                { "Golemagg the Incinerator", "11988" },
-                { "Majordomo Executus", "12018" },
-                { "Ragnaros", "11502" },
-                { "Razorgore the Untamed", "12435" },
-                { "Vaelastrasz the Corrupt", "13020" },
-                { "Broodlord Lashlayer", "12017" },
-                { "Firemaw", "11983" },
-                { "Ebonroc", "14601" },
-                { "Flamegor", "11981" },
-                { "Chromaggus", "14020" },
-                { "Nefarian", "11583" },
-                //{ "AQ40", "000" },
-                //{ "AQ40", "000" },
-                //{ "AQ40", "000" },
-                //{ "AQ40", "000" },
-                //{ "AQ40", "000" },
-                //{ "AQ40", "000" },
-                //{ "AQ40", "000" },
-                //{ "AQ40", "000" },
-                //{ "AQ40", "000" },
-                //{ "NAXX", "000" },
-                //{ "NAXX", "000" },
-                //{ "NAXX", "000" },
-                //{ "NAXX", "000" },
-                //{ "NAXX", "000" },
-                //{ "NAXX", "000" },
-                //{ "NAXX", "000" },
-                //{ "NAXX", "000" },
-                //{ "NAXX", "000" },
-                //{ "NAXX", "000" },
-                //{ "NAXX", "000" },
-                //{ "NAXX", "000" },
-                //{ "NAXX", "000" },
-                //{ "NAXX", "000" },
-                //{ "NAXX", "000" },
+                { "Lucifron", new string[] { "12118" } },
+                { "Magmadar", new string[] { "11982" } },
+                { "Gehennas", new string[] { "12259" } },
+                { "Garr", new string[] { "12057" } },
+                { "Baron Geddon", new string[] { "12056" } },
+                { "Shazzrah", new string[] { "12264" } },
+                { "Sulfuron Harbinger", new string[] { "12098" } },
+                { "Golemagg the Incinerator", new string[] { "11988" } },
+                { "Majordomo Executus", new string[] { "12018" } },
+                { "Ragnaros", new string[] { "11502" } },
+                { "Razorgore the Untamed", new string[] { "12435" } }, // wowhead shows no loot
+                { "Vaelastrasz the Corrupt", new string[] { "13020" } },
+                { "Broodlord Lashlayer", new string[] { "12017" } },
+                { "Firemaw", new string[] { "11983" } },
+                { "Ebonroc", new string[] { "14601" } },
+                { "Flamegor", new string[] { "11981" } },
+                { "Chromaggus", new string[] { "14020" } },
+                { "Nefarian", new string[] { "11583" } },
+                { "The Prophet Skeram", new string[] { "15263" } },
+                { "Bug Trio", new string[] { "15543", "15544", "15511" } },
+                { "Battleguard Sartura", new string[] { "15516" } },
+                { "Fankriss the Unyielding", new string[] { "15510" } },
+                { "Viscidus", new string[] { "15299" } },
+                { "Princess Huhuran", new string[] { "15509" } },
+                { "Twin Emperors", new string[] { "15275", "15276" } },
+                { "Ouro", new string[] { "15517" } },
+                { "C'Thun", new string[] { "15727" } },
+                { "Anub'Rekhan", new string[] { "15956" } },
+                { "Grand Widow Faerlina", new string[] { "15953" } },
+                { "Maexxna", new string[] { "15952" } },
+                { "Noth the Plaguebringer", new string[] { "15954" } },
+                { "Heigan the Unclean", new string[] { "15936" } },
+                { "Loatheb", new string[] { "16011" } },
+                { "Instructor Razuvious", new string[] { "16061" } },
+                { "Gothik the Harvester", new string[] { "16060" } },
+                { "Four Horsemen", new string[] { "181366" } }, //loot code not working for this loot chest object
+                { "Patchwerk", new string[] { "16028" } },
+                { "Grobbulus", new string[] { "15931" } },
+                { "Gluth", new string[] { "15932" } },
+                { "Thaddius", new string[] { "15928" } },
+                { "Sapphiron", new string[] { "15989" } },
+                { "Kel'Thuzad", new string[] { "15990" } },
             };
 
             var slotConverter = new Dictionary<int, Slot>
@@ -79,43 +80,55 @@ namespace LootPriority.ConsoleTest
                 { 11, Slot.Finger },
                 { 12, Slot.Trinket },
                 { 13, Slot.OneHand },
-                { 14, Slot.OffHand }, // shield
+                { 14, Slot.Shield },
                 { 15, Slot.Ranged },
                 { 16, Slot.Back },
                 { 17, Slot.TwoHand },
                 { 21, Slot.MainHand },
                 { 23, Slot.OffHand },
             };
-            var bossDrops = new Dictionary<string, List<Item>>();
+            var bossDrops = new Dictionary<string, List<BossLoot>>();
 
             foreach (var bossId in bossIds)
             {
                 Console.WriteLine(bossId.Key);
-
-                var bossPage = $"https://classic.wowhead.com/npc={bossId.Value}".GetAsync().GetAwaiter().GetResult().Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                foreach (var line in bossPage.Split('\n'))
+                var wowhead = "https://classic.wowhead.com/";
+                foreach (var bossMob in bossId.Value)
                 {
-                    if (line.StartsWith("new Listview({template: 'item', id: 'drops'"))
+                    var bossPage = $"{wowhead}{(bossId.Key == "Four Horsemen" ? "object" : "npc")}={bossMob}".GetAsync().GetAwaiter().GetResult().Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                    foreach (var line in bossPage.Split('\n'))
                     {
-                        var dataString = "data:";
-                        var start = line.IndexOf(dataString) + dataString.Length;
-                        var dropsString = line.Substring(start, line.Length - ");".Length - start - 1);
-                        var drops = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>[]>(dropsString);
-                        foreach (var drop in drops.Where(d => Convert.ToInt32(d["quality"]) == 4 && slotConverter.ContainsKey(Convert.ToInt32(d["slot"]))))
+                        if (line.StartsWith("new Listview({template: 'item', id: 'drops'"))
                         {
-                            var item = new Item
+                            var dataString = "data:";
+                            var start = line.IndexOf(dataString) + dataString.Length;
+                            var dropsString = line.Substring(start, line.Length - ");".Length - start - 1);
+                            var drops = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>[]>(dropsString);
+                            foreach (var drop in drops.Where(d => Convert.ToInt32(d["quality"]) == 4 && slotConverter.ContainsKey(Convert.ToInt32(d["slot"]))))
                             {
-                                Id = Convert.ToInt32(drop["id"]),
-                                Name = (string)drop["name"],
-                                Level = Convert.ToInt32(drop["level"]),
-                                Slot = slotConverter.ContainsKey(Convert.ToInt32(drop["slot"])) ? (Slot?)slotConverter[Convert.ToInt32(drop["slot"])] : null,
-                            };
-                            if (bossDrops.ContainsKey(bossId.Key)) bossDrops[bossId.Key].Add(item);
-                            else bossDrops.Add(bossId.Key, new List<Item> { item });
+                                var dropChance = (double)((JObject)drops[10]["modes"])["0"]["count"] / (double)((JObject)drops[10]["modes"])["0"]["outof"];
+                                var bossLoot = new BossLoot
+                                {
+                                    Item = new Item
+                                    {
+                                        Id = Convert.ToInt32(drop["id"]),
+                                        Name = (string)drop["name"],
+                                        Level = Convert.ToInt32(drop["level"]),
+                                        Slot = slotConverter.ContainsKey(Convert.ToInt32(drop["slot"])) ? (Slot?)slotConverter[Convert.ToInt32(drop["slot"])] : null,
+                                    },
+                                    DropChance = dropChance,
+                                };
+                                if (bossDrops.ContainsKey(bossId.Key))
+                                {
+                                    if (!bossDrops[bossId.Key].Select(d => d.Item.Id).Contains(bossLoot.Item.Id)) bossDrops[bossId.Key].Add(bossLoot);
+                                }
+                                else bossDrops.Add(bossId.Key, new List<BossLoot> { bossLoot });
+                            }
                         }
                     }
                 }
-                PrintItems(bossDrops[bossId.Key]);
+                if (bossDrops.ContainsKey(bossId.Key)) PrintBossLoot(bossDrops[bossId.Key].OrderBy(i => i.Item.Name).ToList());
+                Console.ReadKey();
             }
 
 
@@ -163,6 +176,23 @@ namespace LootPriority.ConsoleTest
             {
                 Console.WriteLine(item.Id + "\t" + item.Level + "\t" + item.Slot.ToString() + (item.Slot.ToString().Length > 7 ? "\t" : "\t\t") + item.Name);
                 foreach (var qr in item.QuestRewards)
+                {
+                    Console.WriteLine("\t" + qr.Id + "\t" + qr.Classes.Count.ToString() + "\t" + qr.Name);
+                }
+            }
+        }
+
+        private static void PrintBossLoot(List<BossLoot> bossLoots)
+        {
+            foreach (var bossLoot in bossLoots)
+            {
+                Console.WriteLine(
+                    bossLoot.Item.Id + "\t" +
+                    bossLoot.Item.Level + "\t" +
+                    bossLoot.Item.Slot.ToString() + (bossLoot.Item.Slot.ToString().Length > 7 ? "\t" : "\t\t") +
+                    $"{bossLoot.DropChance:F}\t" + 
+                    bossLoot.Item.Name);
+                foreach (var qr in bossLoot.Item.QuestRewards)
                 {
                     Console.WriteLine("\t" + qr.Id + "\t" + qr.Classes.Count.ToString() + "\t" + qr.Name);
                 }

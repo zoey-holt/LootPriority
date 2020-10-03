@@ -18,6 +18,7 @@
         TwoHand,
         MainHand,
         OffHand,
+        Shield,
         Ranged,
     }
 }
