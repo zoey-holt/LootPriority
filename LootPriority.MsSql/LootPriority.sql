@@ -65,28 +65,6 @@ INSERT INTO Team (Name) VALUES ('ENCORE Green')
 
 INSERT INTO Realm (Name) VALUES ('Grobbulus')
 
---INSERT INTO Player (Nickname) VALUES ('Zoey')
---INSERT INTO Player (Nickname) VALUES ('Bella')
---INSERT INTO Character (Name, PlayerID, ClassID, TeamID, RealmID) VALUES ( 'Zoey',  (SELECT ID FROM Player WHERE Nickname = 'Zoey'), (SELECT ID FROM Class WHERE Name = 'Mage'), (SELECT ID FROM Team WHERE Name = 'ENCORE Purple'), (SELECT ID FROM Realm WHERE Name = 'Grobbulus'))
---INSERT INTO Character (Name, PlayerID, ClassID, TeamID, RealmID) VALUES ( 'Parabella',  (SELECT ID FROM Player WHERE Nickname = 'Bella'), (SELECT ID FROM Class WHERE Name = 'Rogue'), (SELECT ID FROM Team WHERE Name = 'ENCORE Purple'), (SELECT ID FROM Realm WHERE Name = 'Grobbulus'))
---INSERT INTO Character (Name, PlayerID, ClassID, TeamID, RealmID) VALUES ( 'Bellafrost',  (SELECT ID FROM Player WHERE Nickname = 'Bella'), (SELECT ID FROM Class WHERE Name = 'Mage'), NULL, (SELECT ID FROM Realm WHERE Name = 'Grobbulus'))
-
---DELETE FROM Character
---DELETE FROM Player
-
---SELECT p.Nickname Player, c.Name Character, cl.Name Class, t.Name Team, r.Name Realm
---FROM Player p
---LEFT JOIN Character c
---ON c.PlayerID = p.ID
---LEFT JOIN Class cl
---ON cl.ID = c.ClassID
---LEFT JOIN Team t
---ON t.ID = c.TeamID
---LEFT JOIN Realm r
---ON r.ID = c.RealmID
---ORDER BY p.Nickname ASC, t.Name DESC, c.Name ASC
-
-
 --------------------------------
 --            RAID            --
 --------------------------------
@@ -195,43 +173,6 @@ INSERT INTO Boss (Name, RaidID) VALUES ('Thaddius', (SELECT ID FROM Raid WHERE N
 INSERT INTO Boss (Name, RaidID) VALUES ('Sapphiron', (SELECT ID FROM Raid WHERE Name = 'Naxxramas'))
 INSERT INTO Boss (Name, RaidID) VALUES ('Kel''Thuzad', (SELECT ID FROM Raid WHERE Name = 'Naxxramas'))
 
---INSERT INTO RaidLog (Name, RaidID, TeamID, StartDate, EndDate) VALUES ('Purple AQ 2020-09-23', (SELECT ID FROM Raid WHERE Name = 'Temple of Ahn''Qiraj'), (SELECT ID FROM Team WHERE Name = 'ENCORE Purple'), '2020-09-23 18:00:00', '2020-09-23 20:00:00')
---INSERT INTO RaidLog (Name, RaidID, TeamID, StartDate, EndDate) VALUES ('Purple BWL 2020-09-27', (SELECT ID FROM Raid WHERE Name = 'Blackwing Lair'), (SELECT ID FROM Team WHERE Name = 'ENCORE Purple'), '2020-09-27 18:00:00', '2020-09-27 19:00:00')
---INSERT INTO RaidLog (Name, RaidID, TeamID, StartDate, EndDate) VALUES ('Purple MC 2020-09-27', (SELECT ID FROM Raid WHERE Name = 'Molten Core'), (SELECT ID FROM Team WHERE Name = 'ENCORE Purple'), '2020-09-27 19:00:00', '2020-09-27 20:00:00')
-
---INSERT INTO RaidLogCharacter (RaidLogID, CharacterID) VALUES ((SELECT ID FROM RaidLog WHERE Name = 'Purple AQ 2020-09-23'), (SELECT ID FROM Character WHERE Name = 'Zoey'))
---INSERT INTO RaidLogCharacter (RaidLogID, CharacterID) VALUES ((SELECT ID FROM RaidLog WHERE Name = 'Purple BWL 2020-09-27'), (SELECT ID FROM Character WHERE Name = 'Zoey'))
---INSERT INTO RaidLogCharacter (RaidLogID, CharacterID) VALUES ((SELECT ID FROM RaidLog WHERE Name = 'Purple MC 2020-09-27'), (SELECT ID FROM Character WHERE Name = 'Zoey'))
---INSERT INTO RaidLogCharacter (RaidLogID, CharacterID) VALUES ((SELECT ID FROM RaidLog WHERE Name = 'Purple AQ 2020-09-23'), (SELECT ID FROM Character WHERE Name = 'Parabella'))
---INSERT INTO RaidLogCharacter (RaidLogID, CharacterID) VALUES ((SELECT ID FROM RaidLog WHERE Name = 'Purple BWL 2020-09-27'), (SELECT ID FROM Character WHERE Name = 'Bellafrost'))
---INSERT INTO RaidLogCharacter (RaidLogID, CharacterID) VALUES ((SELECT ID FROM RaidLog WHERE Name = 'Purple MC 2020-09-27'), (SELECT ID FROM Character WHERE Name = 'Parabella'))
-
-
---SELECT r.Name Raid, r.PlayerLimit, rr.ReleaseDate, re.Name Realm, b.Name Boss
---FROM Raid r
---LEFT JOIN RealmRaid rr
---ON rr.RaidID = r.ID
---LEFT JOIN Realm re
---ON re.ID = rr.RealmID
---LEFT JOIN Boss b
---ON b.RaidID = r.ID
-
---SELECT r.Name Raid, t.Name Team, rl.StartDate Start, rl.EndDate [End], c.Name Character, re.Name Realm, cl.Name Class
---FROM Raid r
---INNER JOIN RaidLog rl
---ON rl.RaidID = r.ID
---LEFT JOIN RaidLogCharacter rlc
---ON rlc.RaidLogID = rl.ID
---LEFT JOIN Character c
---ON c.ID = rlc.CharacterID
---LEFT JOIN Class cl
---ON cl.ID = c.ClassID
---LEFT JOIN Realm re
---ON re.ID = c.RealmID
---LEFT JOIN Team t
---ON t.ID = rl.TeamID
-
-
 --------------------------------
 --            ITEM            --
 --------------------------------
@@ -295,7 +236,7 @@ CREATE TABLE CharacterLoot (
 	FOREIGN KEY (CharacterID) REFERENCES Character (ID),
 	FOREIGN KEY (ItemID) REFERENCES Item (ID),
 )
-
+GO
 
 INSERT INTO Slot (Name) VALUES ('Head')
 INSERT INTO Slot (Name) VALUES ('Neck')
@@ -314,7 +255,6 @@ INSERT INTO Slot (Name) VALUES ('Two-Hand')
 INSERT INTO Slot (Name) VALUES ('Main Hand')
 INSERT INTO Slot (Name) VALUES ('Off Hand')
 INSERT INTO Slot (Name) VALUES ('Ranged')
-
 INSERT INTO SlotClassWeight (SlotID, ClassID, Weight) VALUES ((SELECT ID FROM Slot WHERE Name = 'Head'), (SELECT ID FROM Class WHERE Name = 'Mage'), 1.0)
 INSERT INTO SlotClassWeight (SlotID, ClassID, Weight) VALUES ((SELECT ID FROM Slot WHERE Name = 'Neck'), (SELECT ID FROM Class WHERE Name = 'Mage'), 0.75)
 INSERT INTO SlotClassWeight (SlotID, ClassID, Weight) VALUES ((SELECT ID FROM Slot WHERE Name = 'Shoulder'), (SELECT ID FROM Class WHERE Name = 'Mage'), 0.75)
@@ -349,13 +289,10 @@ INSERT INTO SlotClassWeight (SlotID, ClassID, Weight) VALUES ((SELECT ID FROM Sl
 INSERT INTO SlotClassWeight (SlotID, ClassID, Weight) VALUES ((SELECT ID FROM Slot WHERE Name = 'Main Hand'), (SELECT ID FROM Class WHERE Name = 'Warlock'), 1.5)
 INSERT INTO SlotClassWeight (SlotID, ClassID, Weight) VALUES ((SELECT ID FROM Slot WHERE Name = 'Off Hand'), (SELECT ID FROM Class WHERE Name = 'Warlock'), 0.75)
 INSERT INTO SlotClassWeight (SlotID, ClassID, Weight) VALUES ((SELECT ID FROM Slot WHERE Name = 'Ranged'), (SELECT ID FROM Class WHERE Name = 'Warlock'), 0.25)
-
---DELETE FROM BossLoot;
---DELETE FROM ItemClass;
---DELETE FROM CharacterLoot;
---DELETE FROM Item;
+GO
 
 -- Shared AQ40
+GO
 INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (21237, 'Imperial Qiraji Regalia', NULL, NULL, 1, NULL)
 INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (21273, 'Blessed Qiraji Acolyte Staff', 79, (SELECT ID FROM Slot WHERE Name = 'Two-Hand'), 0, (SELECT ID FROM Item WHERE Name = 'Imperial Qiraji Regalia'))
 INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (21275, 'Blessed Qiraji Augur Staff', 79, (SELECT ID FROM Slot WHERE Name = 'Two-Hand'), 0, (SELECT ID FROM Item WHERE Name = 'Imperial Qiraji Regalia'))
@@ -412,6 +349,12 @@ INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name
 INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Deathdealer''s Spaulders'), (SELECT ID FROM Class WHERE [Name] = 'Rogue'))
 INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Mantle of the Oracle'), (SELECT ID FROM Class WHERE [Name] = 'Priest'))
 INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Striker''s Pauldrons'), (SELECT ID FROM Class WHERE [Name] = 'Hunter'))
+GO
+
+-- AQ40 Trash
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (21836, 'Ritssyn''s Ring of Chaos', 71, (SELECT ID FROM Slot WHERE Name = 'Finger'), 0, NULL)
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Trash' AND RaidID = (SELECT ID FROM Raid WHERE Name = 'Temple of Ahn''Qiraj')), (SELECT ID FROM Item WHERE Name = 'Ritssyn''s Ring of Chaos'), 0.10)
+GO
 
 -- The Prophet Skeram
 INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (21706, 'Boots of the Unwavering Will', 73, (SELECT ID FROM Slot WHERE Name = 'Feet'), 0, NULL)
@@ -440,6 +383,7 @@ INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss W
 INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'The Prophet Skeram'), (SELECT ID FROM Item WHERE Name = 'Hammer of Ji''zhi'), 0.12)
 INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'The Prophet Skeram'), (SELECT ID FROM Item WHERE Name = 'Staff of the Qiraji Prophets'), 0.12)
 INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'The Prophet Skeram'), (SELECT ID FROM Item WHERE Name = 'Boots of the Fallen Prophet'), 0.22)
+GO
 
 -- Bug Trio
 INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (21682, 'Bile-Covered Gauntlets', 78, (SELECT ID FROM Slot WHERE Name = 'Hands'), 0, NULL)
@@ -482,6 +426,7 @@ INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss W
 INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Bug Trio'), (SELECT ID FROM Item WHERE Name = 'Ring of the Devoured'), 0.18)
 INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Bug Trio'), (SELECT ID FROM Item WHERE Name = 'Imperial Qiraji Armaments'), 0.09)
 INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Bug Trio'), (SELECT ID FROM Item WHERE Name = 'Imperial Qiraji Regalia'), 0.09)
+GO
 
 -- Battleguard Sartura
 INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (21671, 'Robes of the Battleguard', 76, (SELECT ID FROM Slot WHERE Name = 'Chest'), 0, NULL)
@@ -512,7 +457,7 @@ INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss W
 INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Battleguard Sartura'), (SELECT ID FROM Item WHERE Name = 'Scaled Leggings of Qiraji Fury'), 0.21)
 INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Battleguard Sartura'), (SELECT ID FROM Item WHERE Name = 'Imperial Qiraji Armaments'), 0.08)
 INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Battleguard Sartura'), (SELECT ID FROM Item WHERE Name = 'Imperial Qiraji Regalia'), 0.07)
-
+GO
 
 -- Fankriss the Unyielding
 INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (21663, 'Robes of the Guardian Saint', 77, (SELECT ID FROM Slot WHERE Name = 'Chest'), 0, NULL)
@@ -543,6 +488,7 @@ INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss W
 INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Fankriss the Unyielding'), (SELECT ID FROM Item WHERE Name = 'Totem of Life'), 0.21)
 INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Fankriss the Unyielding'), (SELECT ID FROM Item WHERE Name = 'Imperial Qiraji Armaments'), 0.08)
 INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Fankriss the Unyielding'), (SELECT ID FROM Item WHERE Name = 'Imperial Qiraji Regalia'), 0.07)
+GO
 
 -- Viscidus
 INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22399, 'Idol of Health', 78, (SELECT ID FROM Slot WHERE Name = 'Ranged'), 0, NULL)
@@ -561,6 +507,7 @@ INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss W
 INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Viscidus'), (SELECT ID FROM Item WHERE Name = 'Scarab Brooch'), 0.17)
 INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Viscidus'), (SELECT ID FROM Item WHERE Name = 'Imperial Qiraji Armaments'), 0.19)
 INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Viscidus'), (SELECT ID FROM Item WHERE Name = 'Imperial Qiraji Regalia'), 0.09)
+GO
 
 -- Princess Huhuran
 INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (21618, 'Hive Defiler Wristguards', 78, (SELECT ID FROM Slot WHERE Name = 'Wrist'), 0, NULL)
@@ -579,6 +526,7 @@ INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss W
 INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Princess Huhuran'), (SELECT ID FROM Item WHERE Name = 'Huhuran''s Stinger'), 0.12)
 INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Princess Huhuran'), (SELECT ID FROM Item WHERE Name = 'Imperial Qiraji Regalia'), 0.10)
 INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Princess Huhuran'), (SELECT ID FROM Item WHERE Name = 'Imperial Qiraji Armaments'), 0.08)
+GO
 
 -- Twin Emperors
 INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (20930, 'Vek''lor''s Diadem', NULL, NULL, 1, NULL)
@@ -640,6 +588,7 @@ INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name
 INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Doomcaller''s Circlet'), (SELECT ID FROM Class WHERE [Name] = 'Warlock'))
 INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Enigma Circlet'), (SELECT ID FROM Class WHERE [Name] = 'Mage'))
 INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Tiara of the Oracle'), (SELECT ID FROM Class WHERE [Name] = 'Priest'))
+GO
 
 -- Ouro
 INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (20931, 'Skin of the Great Sandworm', NULL, NULL, 1, NULL)
@@ -687,6 +636,7 @@ INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name
 INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Deathdealer''s Leggings'), (SELECT ID FROM Class WHERE [Name] = 'Rogue'))
 INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Enigma Leggings'), (SELECT ID FROM Class WHERE [Name] = 'Mage'))
 INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Trousers of the Oracle'), (SELECT ID FROM Class WHERE [Name] = 'Priest'))
+GO
 
 -- C'Thun
 INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (21221, 'Eye of C''Thun', NULL, NULL, 1, NULL)
@@ -751,127 +701,4 @@ INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name
 INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Deathdealer''s Vest'), (SELECT ID FROM Class WHERE [Name] = 'Rogue'))
 INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Stormcaller''s Hauberk'), (SELECT ID FROM Class WHERE [Name] = 'Shaman'))
 INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Striker''s Hauberk'), (SELECT ID FROM Class WHERE [Name] = 'Hunter'))
-
-
---INSERT INTO ItemClassWeight (ItemID, ClassID, Weight) VALUES ((SELECT ID FROM Item WHERE Name = 'Ring of the Fallen God'), (SELECT ID FROM Class WHERE Name = 'Mage'), 1.0)
---INSERT INTO ItemClassWeight (ItemID, ClassID, Weight) VALUES ((SELECT ID FROM Item WHERE Name = 'Ring of the Fallen God'), (SELECT ID FROM Class WHERE Name = 'Warlock'), 1.2)
-
-
---SELECT * FROM (
---SELECT 
---	i.ID ItemID,
---	i.Name Item, 
---	i.Level ItemLevel, 
---	s.Name Slot, 
---	CASE 
---		WHEN r.Name IS NULL THEN r2.Name
---		ELSE r.Name
---	END Raid, 
---	CASE 
---		WHEN b.ID IS NULL THEN b2.ID
---		ELSE b.ID
---	END BossID, 
---	CASE 
---		WHEN b.Name IS NULL THEN b2.Name
---		ELSE b.Name
---	END Boss, 
---	CASE 
---		WHEN bl.DropChance IS NULL THEN bl2.DropChance-- / (SELECT COUNT(*) FROM Item WHERE IsQuestItem = 0 AND RewardFromQuestItem = i2.ID)
---		ELSE bl.DropChance
---	END DropChance
---FROM Item i
---LEFT JOIN Slot s
---ON i.SlotID = s.ID
---LEFT JOIN Item i2
---ON i.RewardFromQuestItem = i2.ID AND i2.IsQuestItem = 1
---LEFT JOIN BossLoot bl
---ON bl.ItemID = i.ID
---LEFT JOIN Boss b
---ON b.ID = bl.BossID
---LEFT JOIN Raid r
---ON b.RaidID = r.ID
---LEFT JOIN BossLoot bl2
---ON bl2.ItemID = i2.ID
---LEFT JOIN Boss b2
---ON b2.ID = bl2.BossID
---LEFT JOIN Raid r2
---ON b2.RaidID = r2.ID
---WHERE i.IsQuestItem = 0) a
---ORDER BY Raid ASC, BossID ASC, DropChance DESC
-
---SELECT 
---	i.ID,
---	i.Name, 
---	i.Level, 
---	s.Name Slot, 
---	i.IsQuestItem,
---	c.Name Class,
---	i2.ID QuestRewardID
---FROM Item i
---LEFT JOIN Slot s
---ON i.SlotID = s.ID
---LEFT JOIN ItemClass ic
---ON ic.ItemID = i.ID
---LEFT JOIN Class c
---ON c.ID = ic.ClassID
---LEFT JOIN Item i2
---ON i.ID = i2.RewardFromQuestItem
---ORDER BY i.IsQuestItem ASC
-
-
---SELECT COUNT(i.ID) ItemCount, c.Name
---FROM Item i
---LEFT JOIN ItemClass ic
---ON ic.ItemID = i.ID
---LEFT JOIN Class c
---ON c.ID = ic.ClassID
---GROUP BY c.Name
-
---SELECT t.ItemCount, s.Name, t.AverageLevel
---FROM (
---	SELECT COUNT(i.ID) ItemCount, i.SlotID, AVG(i.Level) AverageLevel
---	FROM Item i
---	LEFT JOIN ItemClass ic
---	ON ic.ItemID = i.ID
---	WHERE i.RewardFromQuestItem IS NULL AND i.IsQuestItem = 0
---	GROUP BY i.SlotID
---) t
---LEFT JOIN Slot s
---ON s.ID = t.SlotID
---ORDER BY t.AverageLevel DESC
-
-
---INSERT INTO CharacterLoot (CharacterID, ItemID, [Date]) VALUES ((SELECT ID FROM [Character] WHERE [Name] = 'Zoey'), (SELECT ID FROM Item WHERE [Name] = 'Boots of Epiphany'), '2020-08-24')
---INSERT INTO CharacterLoot (CharacterID, ItemID, [Date]) VALUES ((SELECT ID FROM [Character] WHERE [Name] = 'Zoey'), (SELECT ID FROM Item WHERE [Name] = 'Vek''nilash''s Circlet'), '2020-09-23')
---INSERT INTO CharacterLoot (CharacterID, ItemID, [Date]) VALUES ((SELECT ID FROM [Character] WHERE [Name] = 'Zoey'), (SELECT ID FROM Item WHERE [Name] = 'Eye of C''Thun'), '2020-09-30')
---INSERT INTO CharacterLoot (CharacterID, ItemID, [Date]) VALUES ((SELECT ID FROM [Character] WHERE [Name] = 'Zoey'), (SELECT ID FROM Item WHERE [Name] = 'Qiraji Bindings of Dominance'), '2020-09-30')
-
-
---SELECT
---	c.[Name] [Character], 
---	cla.[Name] Class, 
---	CASE 
---		WHEN i2.ID IS NULL THEN i.[Name]
---		ELSE i2.[Name]
---	END Item, 
---	cl.[Date]
---FROM CharacterLoot cl
---LEFT JOIN Item i
---ON cl.ItemID = i.ID
---LEFT JOIN Slot s
---ON i.SlotID = s.ID
---LEFT JOIN Item i2
---ON i2.RewardFromQuestItem = i.ID
---LEFT JOIN [Character] c
---ON c.ID = cl.CharacterID
---LEFT JOIN Class cla
---ON cla.ID = c.ClassID
---LEFT JOIN ItemClass ic
---ON ic.ItemID = i.ID AND ic.ClassID = cla.ID
---LEFT JOIN ItemClass ic2
---ON ic2.ItemID = i2.ID
---WHERE ((ic.ID IS NULL OR cla.ID = ic.ClassID) AND i.IsQuestItem = 0) OR ((ic2.ID IS NULL OR cla.ID = ic2.ClassID) AND i.IsQuestItem = 1)
---ORDER BY cla.[Name] ASC, c.[Name] ASC, cl.[Date] ASC
-
-
-
+GO
