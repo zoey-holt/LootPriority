@@ -20,5 +20,6 @@
         OffHand,
         Shield,
         Ranged,
+        Relic,
     }
 }

@@ -20,6 +20,13 @@ namespace LootPriority.ConsoleTest
             //var itemRepo = new ItemRepository();
             //PrintItems(itemRepo.GetItems());
 
+            Dictionary<string, List<BossLoot>> bossDrops = GetBossDropsFromWowhead();
+
+            Console.ReadKey();
+        }
+
+        private static Dictionary<string, List<BossLoot>> GetBossDropsFromWowhead()
+        {
             var bossIds = new Dictionary<string, string[]>
             {
                 { "Lucifron", new string[] { "12118" } },
@@ -65,7 +72,6 @@ namespace LootPriority.ConsoleTest
                 { "Sapphiron", new string[] { "15989" } },
                 { "Kel'Thuzad", new string[] { "15990" } },
             };
-
             var slotConverter = new Dictionary<int, Slot>
             {
                 { 1, Slot.Head },
@@ -86,12 +92,31 @@ namespace LootPriority.ConsoleTest
                 { 17, Slot.TwoHand },
                 { 21, Slot.MainHand },
                 { 23, Slot.OffHand },
+                { 28, Slot.Relic },
             };
-            var bossDrops = new Dictionary<string, List<BossLoot>>();
+            var classConverter = new Dictionary<long, CharacterClass>
+            {
+                { (long)Math.Pow(2, 0), CharacterClass.Warrior },
+                { (long)Math.Pow(2, 1), CharacterClass.Paladin },
+                { (long)Math.Pow(2, 2), CharacterClass.Hunter },
+                { (long)Math.Pow(2, 3), CharacterClass.Rogue },
+                { (long)Math.Pow(2, 4), CharacterClass.Priest },
+                { (long)Math.Pow(2, 6), CharacterClass.Shaman },
+                { (long)Math.Pow(2, 7), CharacterClass.Mage },
+                { (long)Math.Pow(2, 8), CharacterClass.Warlock },
+                { (long)Math.Pow(2, 10), CharacterClass.Druid },
+            };
 
+            var bossDrops = new Dictionary<string, List<BossLoot>>();
             foreach (var bossId in bossIds)
             {
                 Console.WriteLine(bossId.Key);
+                var key = Console.ReadKey();
+                if (key.Key == ConsoleKey.Spacebar)
+                {
+                    Console.WriteLine("Skipped");
+                    continue;
+                }
                 var wowhead = "https://classic.wowhead.com/";
                 foreach (var bossMob in bossId.Value)
                 {
@@ -104,9 +129,11 @@ namespace LootPriority.ConsoleTest
                             var start = line.IndexOf(dataString) + dataString.Length;
                             var dropsString = line.Substring(start, line.Length - ");".Length - start - 1);
                             var drops = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>[]>(dropsString);
-                            foreach (var drop in drops.Where(d => Convert.ToInt32(d["quality"]) == 4 && slotConverter.ContainsKey(Convert.ToInt32(d["slot"]))))
+                            foreach (var drop in drops.Where(d => Convert.ToInt32(d["quality"]) == 4))
                             {
-                                var dropChance = (double)((JObject)drops[10]["modes"])["0"]["count"] / (double)((JObject)drops[10]["modes"])["0"]["outof"];
+                                var dropTotal = (double)((JObject)drop["modes"])["0"]["outof"];
+                                var dropChance = dropTotal > 0 ? (double)((JObject)drop["modes"])["0"]["count"] / dropTotal : Convert.ToDouble(drop["percentOverride"]) / 100;
+                                var classes = drop.ContainsKey("reqclass") ? (long)drop["reqclass"] : -1;
                                 var bossLoot = new BossLoot
                                 {
                                     Item = new Item
@@ -115,6 +142,7 @@ namespace LootPriority.ConsoleTest
                                         Name = (string)drop["name"],
                                         Level = Convert.ToInt32(drop["level"]),
                                         Slot = slotConverter.ContainsKey(Convert.ToInt32(drop["slot"])) ? (Slot?)slotConverter[Convert.ToInt32(drop["slot"])] : null,
+                                        Classes = classes > -1 ? classConverter.Select(c => (classes & c.Key, c.Value)).Where(c => c.Item1 > 0).Select(c => c.Item2).ToList() : new List<CharacterClass>(),
                                     },
                                     DropChance = dropChance,
                                 };
@@ -127,12 +155,10 @@ namespace LootPriority.ConsoleTest
                         }
                     }
                 }
-                if (bossDrops.ContainsKey(bossId.Key)) PrintBossLoot(bossDrops[bossId.Key].OrderBy(i => i.Item.Name).ToList());
-                Console.ReadKey();
+                if (bossDrops.ContainsKey(bossId.Key)) PrintBossLoot(bossDrops[bossId.Key].OrderByDescending(bd => bd.DropChance).ToList());
             }
 
-
-            Console.ReadKey();
+            return bossDrops;
         }
 
         private static void AddPlayersFromFile(PlayerRepository playerRepo)
@@ -186,11 +212,14 @@ namespace LootPriority.ConsoleTest
         {
             foreach (var bossLoot in bossLoots)
             {
+                var slot = bossLoot.Item.Slot.ToString();
+                var classes = string.Join(',', bossLoot.Item.Classes.Select(c => c.ToString()));
                 Console.WriteLine(
                     bossLoot.Item.Id + "\t" +
                     bossLoot.Item.Level + "\t" +
-                    bossLoot.Item.Slot.ToString() + (bossLoot.Item.Slot.ToString().Length > 7 ? "\t" : "\t\t") +
-                    $"{bossLoot.DropChance:F}\t" + 
+                    slot + (slot.Length > 7 ? "\t" : "\t\t") +
+                    $"{bossLoot.DropChance:F}\t" +
+                    classes + (classes.Length > 7 ? "\t" : "\t\t") +
                     bossLoot.Item.Name);
                 foreach (var qr in bossLoot.Item.QuestRewards)
                 {
