@@ -14,7 +14,6 @@ GO
 --           PLAYER           --
 --------------------------------
 
-
 CREATE TABLE Player (
 	ID INT PRIMARY KEY IDENTITY (1, 1),
 	Nickname VARCHAR(100) NULL,
@@ -63,7 +62,6 @@ GO
 --------------------------------
 --            RAID            --
 --------------------------------
-
 
 CREATE TABLE Raid (
 	ID INT PRIMARY KEY IDENTITY (1, 1),
@@ -148,7 +146,7 @@ INSERT INTO Boss (Name, RaidID) VALUES ('C''Thun', (SELECT ID FROM Raid WHERE Na
 INSERT INTO Boss (Name, RaidID) VALUES ('Trash', (SELECT ID FROM Raid WHERE Name = 'Naxxramas'))
 INSERT INTO Boss (Name, RaidID) VALUES ('Anub''Rekhan', (SELECT ID FROM Raid WHERE Name = 'Naxxramas'))
 INSERT INTO Boss (Name, RaidID) VALUES ('Grand Widow Faerlina', (SELECT ID FROM Raid WHERE Name = 'Naxxramas'))
-INSERT INTO Boss (Name, RaidID) VALUES ('Maexnna', (SELECT ID FROM Raid WHERE Name = 'Naxxramas'))
+INSERT INTO Boss (Name, RaidID) VALUES ('Maexxna', (SELECT ID FROM Raid WHERE Name = 'Naxxramas'))
 INSERT INTO Boss (Name, RaidID) VALUES ('Noth the Plaguebringer', (SELECT ID FROM Raid WHERE Name = 'Naxxramas'))
 INSERT INTO Boss (Name, RaidID) VALUES ('Heigan the Unclean', (SELECT ID FROM Raid WHERE Name = 'Naxxramas'))
 INSERT INTO Boss (Name, RaidID) VALUES ('Loatheb', (SELECT ID FROM Raid WHERE Name = 'Naxxramas'))
@@ -181,7 +179,7 @@ CREATE TABLE SlotClassWeight (
 )
 CREATE TABLE Item (
 	ID INT PRIMARY KEY,
-	[Name] VARCHAR(100) NOT NULL UNIQUE,
+	[Name] VARCHAR(100) NOT NULL,
 	[Level] INT NULL,
 	SlotID INT NULL,
 	IsQuestItem BIT NOT NULL,
@@ -1595,9 +1593,9 @@ INSERT INTO ItemClass (ItemID, ClassID) VALUES (22365, (SELECT ID FROM Class WHE
 INSERT INTO ItemClass (ItemID, ClassID) VALUES (22365, (SELECT ID FROM Class WHERE [Name] = 'Hunter'))--Desecrated Boots
 INSERT INTO ItemClass (ItemID, ClassID) VALUES (22365, (SELECT ID FROM Class WHERE [Name] = 'Shaman'))--Desecrated Boots
 INSERT INTO ItemClass (ItemID, ClassID) VALUES (22365, (SELECT ID FROM Class WHERE [Name] = 'Druid'))--Desecrated Boots
-INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22349, 'Desecrated Breastplate', 60, NULL, 0, NULL)
-INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22350, 'Desecrated Tunic', 60, NULL, 0, NULL)
-INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22351, 'Desecrated Robe', 60, NULL, 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22349, 'Desecrated Breastplate', 60, NULL, 1, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22350, 'Desecrated Tunic', 60, NULL, 1, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22351, 'Desecrated Robe', 60, NULL, 1, NULL)
 INSERT INTO ItemClass (ItemID, ClassID) VALUES (22349, (SELECT ID FROM Class WHERE [Name] = 'Warrior'))--Desecrated Breastplate
 INSERT INTO ItemClass (ItemID, ClassID) VALUES (22349, (SELECT ID FROM Class WHERE [Name] = 'Rogue'))--Desecrated Breastplate
 INSERT INTO ItemClass (ItemID, ClassID) VALUES (22350, (SELECT ID FROM Class WHERE [Name] = 'Paladin'))--Desecrated Tunic
@@ -1799,15 +1797,15 @@ INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VAL
 INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23025, 'Seal of the Damned', 85, (SELECT ID FROM Slot WHERE Name = 'Finger'), 0, NULL)
 INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23027, 'Warmth of Forgiveness', 85, (SELECT ID FROM Slot WHERE Name = 'Trinket'), 0, NULL)
 INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23071, 'Leggings of Apocalypse', 83, (SELECT ID FROM Slot WHERE Name = 'Legs'), 0, NULL)
-INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Four Horsemen'), 22349, 0.63)--Desecrated Breastplate
-INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Four Horsemen'), 22350, 0.48)--Desecrated Tunic
-INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Four Horsemen'), 22351, 0.46)--Desecrated Robe
-INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Four Horsemen'), 22691, 0.27)--Corrupted Ashbringer
-INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Four Horsemen'), 22809, 0.16)--Maul of the Redeemed Crusader
-INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Four Horsemen'), 22811, 0.15)--Soulstring
-INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Four Horsemen'), 23025, 0.10)--Seal of the Damned
-INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Four Horsemen'), 23027, 0.10)--Warmth of Forgiveness
-INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Four Horsemen'), 23071, 0.10)--Leggings of Apocalypse
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'The Four Horsemen'), 22349, 0.63)--Desecrated Breastplate
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'The Four Horsemen'), 22350, 0.48)--Desecrated Tunic
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'The Four Horsemen'), 22351, 0.46)--Desecrated Robe
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'The Four Horsemen'), 22691, 0.27)--Corrupted Ashbringer
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'The Four Horsemen'), 22809, 0.16)--Maul of the Redeemed Crusader
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'The Four Horsemen'), 22811, 0.15)--Soulstring
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'The Four Horsemen'), 23025, 0.10)--Seal of the Damned
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'The Four Horsemen'), 23027, 0.10)--Warmth of Forgiveness
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'The Four Horsemen'), 23071, 0.10)--Leggings of Apocalypse
 GO
 -- Patchwerk
 INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22960, 'Cloak of Suturing', 83, (SELECT ID FROM Slot WHERE Name = 'Back'), 0, NULL)

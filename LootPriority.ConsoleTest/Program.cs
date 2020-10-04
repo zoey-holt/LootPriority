@@ -220,7 +220,7 @@ namespace LootPriority.ConsoleTest
                 { "Loatheb", new string[] { "16011" } },
                 { "Instructor Razuvious", new string[] { "16061" } },
                 { "Gothik the Harvester", new string[] { "16060" } },
-                { "Four Horsemen", new string[] { "181366" } },
+                { "The Four Horsemen", new string[] { "181366" } },
                 { "Patchwerk", new string[] { "16028" } },
                 { "Grobbulus", new string[] { "15931" } },
                 { "Gluth", new string[] { "15932" } },
