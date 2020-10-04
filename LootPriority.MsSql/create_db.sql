@@ -19,22 +19,18 @@ CREATE TABLE Player (
 	ID INT PRIMARY KEY IDENTITY (1, 1),
 	Nickname VARCHAR(100) NULL,
 )
-
 CREATE TABLE Class (
 	ID INT PRIMARY KEY IDENTITY (1, 1),
 	Name VARCHAR(100) NOT NULL UNIQUE,
 )
-
 CREATE TABLE Team (
 	ID INT PRIMARY KEY IDENTITY (1, 1),
 	Name VARCHAR(100) NOT NULL,
 )
-
 CREATE TABLE Realm (
 	ID INT PRIMARY KEY IDENTITY (1, 1),
 	Name VARCHAR(100) NOT NULL UNIQUE,
 )
-
 CREATE TABLE Character (
 	ID INT PRIMARY KEY IDENTITY (1, 1),
 	Name VARCHAR(100) NOT NULL,
@@ -47,7 +43,7 @@ CREATE TABLE Character (
 	FOREIGN KEY (TeamID) REFERENCES Team (ID),
 	FOREIGN KEY (RealmID) REFERENCES Realm (ID),
 )
-
+GO
 
 INSERT INTO Class (Name) VALUES ('Druid')
 INSERT INTO Class (Name) VALUES ('Hunter')
@@ -58,12 +54,11 @@ INSERT INTO Class (Name) VALUES ('Rogue')
 INSERT INTO Class (Name) VALUES ('Shaman')
 INSERT INTO Class (Name) VALUES ('Warlock')
 INSERT INTO Class (Name) VALUES ('Warrior')
-
 INSERT INTO Team (Name) VALUES ('ENCORE Purple')
 INSERT INTO Team (Name) VALUES ('ENCORE Red')
 INSERT INTO Team (Name) VALUES ('ENCORE Green')
-
 INSERT INTO Realm (Name) VALUES ('Grobbulus')
+GO
 
 --------------------------------
 --            RAID            --
@@ -75,7 +70,6 @@ CREATE TABLE Raid (
 	Name VARCHAR(100) NOT NULL,
 	PlayerLimit INT NOT NULL,
 )
-
 CREATE TABLE RealmRaid (
 	ID INT PRIMARY KEY IDENTITY (1, 1),
 	ReleaseDate DATETIME NULL,
@@ -84,14 +78,12 @@ CREATE TABLE RealmRaid (
 	FOREIGN KEY (RealmID) REFERENCES Realm (ID),
 	FOREIGN KEY (RaidID) REFERENCES Raid (ID),
 )
-
 CREATE TABLE Boss (
 	ID INT PRIMARY KEY IDENTITY (1, 1),
 	Name VARCHAR(100) NOT NULL,
 	RaidID INT NOT NULL,
 	FOREIGN KEY (RaidID) REFERENCES Raid (ID),
 )
-
 CREATE TABLE RaidLog (
 	ID INT PRIMARY KEY IDENTITY (1, 1),
 	Name VARCHAR(100) NULL,
@@ -102,7 +94,6 @@ CREATE TABLE RaidLog (
 	FOREIGN KEY (RaidID) REFERENCES Raid (ID),
 	FOREIGN KEY (TeamID) REFERENCES Team (ID),
 )
-
 CREATE TABLE RaidLogCharacter (
 	ID INT PRIMARY KEY IDENTITY (1, 1),
 	RaidLogID INT NOT NULL,
@@ -110,7 +101,7 @@ CREATE TABLE RaidLogCharacter (
 	FOREIGN KEY (RaidLogID) REFERENCES RaidLog (ID),
 	FOREIGN KEY (CharacterID) REFERENCES Character (ID),
 )
-
+GO
 
 INSERT INTO Raid (Name, PlayerLimit) VALUES ('Molten Core', 40)
 INSERT INTO Raid (Name, PlayerLimit) VALUES ('Blackwing Lair', 40)
@@ -118,14 +109,12 @@ INSERT INTO Raid (Name, PlayerLimit) VALUES ('Zul''Gurub', 20)
 INSERT INTO Raid (Name, PlayerLimit) VALUES ('Ruins of Ahn''Qiraj', 20)
 INSERT INTO Raid (Name, PlayerLimit) VALUES ('Temple of Ahn''Qiraj', 40)
 INSERT INTO Raid (Name, PlayerLimit) VALUES ('Naxxramas', 40)
-
 INSERT INTO RealmRaid (ReleaseDate, RealmID, RaidID) VALUES ('2019-08-26', (SELECT ID FROM Realm WHERE Name = 'Grobbulus'), (SELECT ID FROM Raid WHERE Name = 'Molten Core'))
 INSERT INTO RealmRaid (ReleaseDate, RealmID, RaidID) VALUES ('2020-02-12', (SELECT ID FROM Realm WHERE Name = 'Grobbulus'), (SELECT ID FROM Raid WHERE Name = 'Blackwing Lair'))
 INSERT INTO RealmRaid (ReleaseDate, RealmID, RaidID) VALUES ('2020-04-15', (SELECT ID FROM Realm WHERE Name = 'Grobbulus'), (SELECT ID FROM Raid WHERE Name = 'Zul''Gurub'))
 INSERT INTO RealmRaid (ReleaseDate, RealmID, RaidID) VALUES ('2020-08-20', (SELECT ID FROM Realm WHERE Name = 'Grobbulus'), (SELECT ID FROM Raid WHERE Name = 'Ruins of Ahn''Qiraj'))
 INSERT INTO RealmRaid (ReleaseDate, RealmID, RaidID) VALUES ('2020-08-20', (SELECT ID FROM Realm WHERE Name = 'Grobbulus'), (SELECT ID FROM Raid WHERE Name = 'Temple of Ahn''Qiraj'))
 INSERT INTO RealmRaid (ReleaseDate, RealmID, RaidID) VALUES (NULL, (SELECT ID FROM Realm WHERE Name = 'Grobbulus'), (SELECT ID FROM Raid WHERE Name = 'Naxxramas'))
-
 INSERT INTO Boss (Name, RaidID) VALUES ('Trash', (SELECT ID FROM Raid WHERE Name = 'Molten Core'))
 INSERT INTO Boss (Name, RaidID) VALUES ('Lucifron', (SELECT ID FROM Raid WHERE Name = 'Molten Core'))
 INSERT INTO Boss (Name, RaidID) VALUES ('Magmadar', (SELECT ID FROM Raid WHERE Name = 'Molten Core'))
@@ -172,6 +161,7 @@ INSERT INTO Boss (Name, RaidID) VALUES ('Gluth', (SELECT ID FROM Raid WHERE Name
 INSERT INTO Boss (Name, RaidID) VALUES ('Thaddius', (SELECT ID FROM Raid WHERE Name = 'Naxxramas'))
 INSERT INTO Boss (Name, RaidID) VALUES ('Sapphiron', (SELECT ID FROM Raid WHERE Name = 'Naxxramas'))
 INSERT INTO Boss (Name, RaidID) VALUES ('Kel''Thuzad', (SELECT ID FROM Raid WHERE Name = 'Naxxramas'))
+GO
 
 --------------------------------
 --            ITEM            --
@@ -181,7 +171,6 @@ CREATE TABLE Slot (
 	ID INT PRIMARY KEY IDENTITY (1, 1),
 	Name VARCHAR(100) NOT NULL,
 )
-
 CREATE TABLE SlotClassWeight (
 	ID INT PRIMARY KEY IDENTITY (1, 1),
 	SlotID INT NOT NULL,
@@ -190,7 +179,6 @@ CREATE TABLE SlotClassWeight (
 	FOREIGN KEY (SlotID) REFERENCES Slot (ID),
 	FOREIGN KEY (ClassID) REFERENCES Class (ID),
 )
-
 CREATE TABLE Item (
 	ID INT PRIMARY KEY,
 	[Name] VARCHAR(100) NOT NULL UNIQUE,
@@ -201,7 +189,6 @@ CREATE TABLE Item (
 	FOREIGN KEY (SlotID) REFERENCES Slot (ID),
 	FOREIGN KEY (RewardFromQuestItem) REFERENCES Item (ID),
 )
-
 CREATE TABLE ItemClass (
 	ID INT PRIMARY KEY IDENTITY (1, 1),
 	ItemID INT NULL,
@@ -209,7 +196,6 @@ CREATE TABLE ItemClass (
 	FOREIGN KEY (ItemID) REFERENCES Item (ID),
 	FOREIGN KEY (ClassID) REFERENCES Class (ID),
 )
-
 CREATE TABLE ItemClassWeight (
 	ID INT PRIMARY KEY IDENTITY (1, 1),
 	ItemID INT NOT NULL,
@@ -218,7 +204,6 @@ CREATE TABLE ItemClassWeight (
 	FOREIGN KEY (ItemID) REFERENCES Item (ID),
 	FOREIGN KEY (ClassID) REFERENCES Class (ID),
 )
-
 CREATE TABLE BossLoot (
 	ID INT PRIMARY KEY IDENTITY (1, 1),
 	BossID INT NOT NULL,
@@ -227,7 +212,6 @@ CREATE TABLE BossLoot (
 	FOREIGN KEY (BossID) REFERENCES Boss (ID),
 	FOREIGN KEY (ItemID) REFERENCES Item (ID),
 )
-
 CREATE TABLE CharacterLoot (
 	ID INT PRIMARY KEY IDENTITY (1, 1),
 	CharacterID INT NOT NULL,
@@ -1133,7 +1117,7 @@ INSERT INTO ItemClass (ItemID, ClassID) VALUES (16897, (SELECT ID FROM Class WHE
 GO
 
 
--- Shared AQ40
+-- AQ40 Shared
 INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (21237, 'Imperial Qiraji Regalia', NULL, NULL, 1, NULL)
 INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (21273, 'Blessed Qiraji Acolyte Staff', 79, (SELECT ID FROM Slot WHERE Name = 'Two-Hand'), 0, (SELECT ID FROM Item WHERE Name = 'Imperial Qiraji Regalia'))
 INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (21275, 'Blessed Qiraji Augur Staff', 79, (SELECT ID FROM Slot WHERE Name = 'Two-Hand'), 0, (SELECT ID FROM Item WHERE Name = 'Imperial Qiraji Regalia'))
@@ -1192,9 +1176,24 @@ INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name
 INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Striker''s Pauldrons'), (SELECT ID FROM Class WHERE [Name] = 'Hunter'))
 GO
 -- AQ40 Trash
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (21889, 'Gloves of the Redeemed Prophecy', 75, (SELECT ID FROM Slot WHERE Name = 'Hands'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (21890, 'Gloves of the Fallen Prophet', 75, (SELECT ID FROM Slot WHERE Name = 'Hands'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (21891, 'Shard of the Fallen Star', 75, (SELECT ID FROM Slot WHERE Name = 'Trinket'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (21838, 'Garb of Royal Ascension', 71, (SELECT ID FROM Slot WHERE Name = 'Chest'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (21837, 'Anubisath Warhammer', 71, (SELECT ID FROM Slot WHERE Name = 'One-Hand'), 0, NULL)
 INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (21836, 'Ritssyn''s Ring of Chaos', 71, (SELECT ID FROM Slot WHERE Name = 'Finger'), 0, NULL)
-INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Trash' AND RaidID = (SELECT ID FROM Raid WHERE Name = 'Temple of Ahn''Qiraj')), (SELECT ID FROM Item WHERE Name = 'Ritssyn''s Ring of Chaos'), 0.10)
--- TODO more trash loot
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (21856, 'Neretzek, The Blood Drinker', 71, (SELECT ID FROM Slot WHERE Name = 'Two-Hand'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (21888, 'Gloves of the Immortal', 71, (SELECT ID FROM Slot WHERE Name = 'Hands'), 0, NULL)
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Trash' AND RaidID = (SELECT ID FROM Raid WHERE Name = 'Temple of Ahn''Qiraj')), 21889, 0.10)--Gloves of the Redeemed Prophecy
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Trash' AND RaidID = (SELECT ID FROM Raid WHERE Name = 'Temple of Ahn''Qiraj')), 21890, 0.10)--Gloves of the Fallen Prophet
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Trash' AND RaidID = (SELECT ID FROM Raid WHERE Name = 'Temple of Ahn''Qiraj')), 21891, 0.10)--Shard of the Fallen Star
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Trash' AND RaidID = (SELECT ID FROM Raid WHERE Name = 'Temple of Ahn''Qiraj')), 21838, 0.10)--Garb of Royal Ascension
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Trash' AND RaidID = (SELECT ID FROM Raid WHERE Name = 'Temple of Ahn''Qiraj')), 21837, 0.10)--Anubisath Warhammer
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Trash' AND RaidID = (SELECT ID FROM Raid WHERE Name = 'Temple of Ahn''Qiraj')), 21836, 0.10)--Ritssyn's Ring of Chaos
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Trash' AND RaidID = (SELECT ID FROM Raid WHERE Name = 'Temple of Ahn''Qiraj')), 21856, 0.10)--Neretzek, The Blood Drinker
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Trash' AND RaidID = (SELECT ID FROM Raid WHERE Name = 'Temple of Ahn''Qiraj')), 21888, 0.10)--Gloves of the Immortal
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (21889, (SELECT ID FROM Class WHERE [Name] = 'Paladin'))--Gloves of the Redeemed Prophecy
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (21890, (SELECT ID FROM Class WHERE [Name] = 'Shaman'))--Gloves of the Fallen Prophet
 GO
 -- The Prophet Skeram
 INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (21706, 'Boots of the Unwavering Will', 73, (SELECT ID FROM Slot WHERE Name = 'Feet'), 0, NULL)
@@ -1533,4 +1532,422 @@ INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name
 INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Deathdealer''s Vest'), (SELECT ID FROM Class WHERE [Name] = 'Rogue'))
 INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Stormcaller''s Hauberk'), (SELECT ID FROM Class WHERE [Name] = 'Shaman'))
 INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Striker''s Hauberk'), (SELECT ID FROM Class WHERE [Name] = 'Hunter'))
+GO
+
+-- Naxx T3
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22355, 'Desecrated Bracers', 60, NULL, 1, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22369, 'Desecrated Bindings', 60, NULL, 1, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22362, 'Desecrated Wristguards', 60, NULL, 1, NULL)
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22355, (SELECT ID FROM Class WHERE [Name] = 'Warrior'))--Desecrated Bracers
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22355, (SELECT ID FROM Class WHERE [Name] = 'Rogue'))--Desecrated Bracers
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22369, (SELECT ID FROM Class WHERE [Name] = 'Priest'))--Desecrated Bindings
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22369, (SELECT ID FROM Class WHERE [Name] = 'Mage'))--Desecrated Bindings
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22369, (SELECT ID FROM Class WHERE [Name] = 'Warlock'))--Desecrated Bindings
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22362, (SELECT ID FROM Class WHERE [Name] = 'Paladin'))--Desecrated Wristguards
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22362, (SELECT ID FROM Class WHERE [Name] = 'Hunter'))--Desecrated Wristguards
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22362, (SELECT ID FROM Class WHERE [Name] = 'Shaman'))--Desecrated Wristguards
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22362, (SELECT ID FROM Class WHERE [Name] = 'Druid'))--Desecrated Wristguards
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22364, 'Desecrated Handguards', 60, NULL, 1, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22371, 'Desecrated Gloves', 60, NULL, 1, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22357, 'Desecrated Gauntlets', 60, NULL, 1, NULL)
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22364, (SELECT ID FROM Class WHERE [Name] = 'Paladin'))--Desecrated Handguards
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22364, (SELECT ID FROM Class WHERE [Name] = 'Hunter'))--Desecrated Handguards
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22364, (SELECT ID FROM Class WHERE [Name] = 'Shaman'))--Desecrated Handguards
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22364, (SELECT ID FROM Class WHERE [Name] = 'Druid'))--Desecrated Handguards
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22371, (SELECT ID FROM Class WHERE [Name] = 'Priest'))--Desecrated Gloves
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22371, (SELECT ID FROM Class WHERE [Name] = 'Mage'))--Desecrated Gloves
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22371, (SELECT ID FROM Class WHERE [Name] = 'Warlock'))--Desecrated Gloves
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22357, (SELECT ID FROM Class WHERE [Name] = 'Warrior'))--Desecrated Gauntlets
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22357, (SELECT ID FROM Class WHERE [Name] = 'Rogue'))--Desecrated Gauntlets
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22363, 'Desecrated Girdle', 60, NULL, 1, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22370, 'Desecrated Belt', 60, NULL, 1, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22356, 'Desecrated Waistguard', 60, NULL, 1, NULL)
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22363, (SELECT ID FROM Class WHERE [Name] = 'Paladin'))--Desecrated Girdle
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22363, (SELECT ID FROM Class WHERE [Name] = 'Hunter'))--Desecrated Girdle
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22363, (SELECT ID FROM Class WHERE [Name] = 'Shaman'))--Desecrated Girdle
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22363, (SELECT ID FROM Class WHERE [Name] = 'Druid'))--Desecrated Girdle
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22370, (SELECT ID FROM Class WHERE [Name] = 'Priest'))--Desecrated Belt
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22370, (SELECT ID FROM Class WHERE [Name] = 'Mage'))--Desecrated Belt
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22370, (SELECT ID FROM Class WHERE [Name] = 'Warlock'))--Desecrated Belt
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22356, (SELECT ID FROM Class WHERE [Name] = 'Warrior'))--Desecrated Waistguard
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22356, (SELECT ID FROM Class WHERE [Name] = 'Rogue'))--Desecrated Waistguard
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22352, 'Desecrated Legplates', 60, NULL, 1, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22359, 'Desecrated Legguards', 60, NULL, 1, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22366, 'Desecrated Leggings', 60, NULL, 1, NULL)
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22352, (SELECT ID FROM Class WHERE [Name] = 'Warrior'))--Desecrated Legplates
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22352, (SELECT ID FROM Class WHERE [Name] = 'Rogue'))--Desecrated Legplates
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22359, (SELECT ID FROM Class WHERE [Name] = 'Paladin'))--Desecrated Legguards
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22359, (SELECT ID FROM Class WHERE [Name] = 'Hunter'))--Desecrated Legguards
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22359, (SELECT ID FROM Class WHERE [Name] = 'Shaman'))--Desecrated Legguards
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22359, (SELECT ID FROM Class WHERE [Name] = 'Druid'))--Desecrated Legguards
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22366, (SELECT ID FROM Class WHERE [Name] = 'Priest'))--Desecrated Leggings
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22366, (SELECT ID FROM Class WHERE [Name] = 'Mage'))--Desecrated Leggings
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22366, (SELECT ID FROM Class WHERE [Name] = 'Warlock'))--Desecrated Leggings
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22372, 'Desecrated Sandals', 60, NULL, 1, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22358, 'Desecrated Sabatons', 60, NULL, 1, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22365, 'Desecrated Boots', 60, NULL, 1, NULL)
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22372, (SELECT ID FROM Class WHERE [Name] = 'Priest'))--Desecrated Sandals
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22372, (SELECT ID FROM Class WHERE [Name] = 'Mage'))--Desecrated Sandals
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22372, (SELECT ID FROM Class WHERE [Name] = 'Warlock'))--Desecrated Sandals
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22358, (SELECT ID FROM Class WHERE [Name] = 'Warrior'))--Desecrated Sabatons
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22358, (SELECT ID FROM Class WHERE [Name] = 'Rogue'))--Desecrated Sabatons
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22365, (SELECT ID FROM Class WHERE [Name] = 'Paladin'))--Desecrated Boots
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22365, (SELECT ID FROM Class WHERE [Name] = 'Hunter'))--Desecrated Boots
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22365, (SELECT ID FROM Class WHERE [Name] = 'Shaman'))--Desecrated Boots
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22365, (SELECT ID FROM Class WHERE [Name] = 'Druid'))--Desecrated Boots
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22349, 'Desecrated Breastplate', 60, NULL, 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22350, 'Desecrated Tunic', 60, NULL, 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22351, 'Desecrated Robe', 60, NULL, 0, NULL)
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22349, (SELECT ID FROM Class WHERE [Name] = 'Warrior'))--Desecrated Breastplate
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22349, (SELECT ID FROM Class WHERE [Name] = 'Rogue'))--Desecrated Breastplate
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22350, (SELECT ID FROM Class WHERE [Name] = 'Paladin'))--Desecrated Tunic
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22350, (SELECT ID FROM Class WHERE [Name] = 'Hunter'))--Desecrated Tunic
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22350, (SELECT ID FROM Class WHERE [Name] = 'Shaman'))--Desecrated Tunic
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22350, (SELECT ID FROM Class WHERE [Name] = 'Druid'))--Desecrated Tunic
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22351, (SELECT ID FROM Class WHERE [Name] = 'Priest'))--Desecrated Robe
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22351, (SELECT ID FROM Class WHERE [Name] = 'Mage'))--Desecrated Robe
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22351, (SELECT ID FROM Class WHERE [Name] = 'Warlock'))--Desecrated Robe
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22368, 'Desecrated Shoulderpads', 60, NULL, 1, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22354, 'Desecrated Pauldrons', 60, NULL, 1, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22361, 'Desecrated Spaulders', 60, NULL, 1, NULL)
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22368, (SELECT ID FROM Class WHERE [Name] = 'Priest'))--Desecrated Shoulderpads
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22368, (SELECT ID FROM Class WHERE [Name] = 'Mage'))--Desecrated Shoulderpads
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22368, (SELECT ID FROM Class WHERE [Name] = 'Warlock'))--Desecrated Shoulderpads
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22354, (SELECT ID FROM Class WHERE [Name] = 'Warrior'))--Desecrated Pauldrons
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22354, (SELECT ID FROM Class WHERE [Name] = 'Rogue'))--Desecrated Pauldrons
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22361, (SELECT ID FROM Class WHERE [Name] = 'Paladin'))--Desecrated Spaulders
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22361, (SELECT ID FROM Class WHERE [Name] = 'Hunter'))--Desecrated Spaulders
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22361, (SELECT ID FROM Class WHERE [Name] = 'Shaman'))--Desecrated Spaulders
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22361, (SELECT ID FROM Class WHERE [Name] = 'Druid'))--Desecrated Spaulders
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22353, 'Desecrated Helmet', 60, NULL, 1, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22360, 'Desecrated Headpiece', 60, NULL, 1, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22367, 'Desecrated Circlet', 60, NULL, 1, NULL)
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22353, (SELECT ID FROM Class WHERE [Name] = 'Warrior'))--Desecrated Helmet
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22353, (SELECT ID FROM Class WHERE [Name] = 'Rogue'))--Desecrated Helmet
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22360, (SELECT ID FROM Class WHERE [Name] = 'Paladin'))--Desecrated Headpiece
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22360, (SELECT ID FROM Class WHERE [Name] = 'Hunter'))--Desecrated Headpiece
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22360, (SELECT ID FROM Class WHERE [Name] = 'Shaman'))--Desecrated Headpiece
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22360, (SELECT ID FROM Class WHERE [Name] = 'Druid'))--Desecrated Headpiece
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22367, (SELECT ID FROM Class WHERE [Name] = 'Priest'))--Desecrated Circlet
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22367, (SELECT ID FROM Class WHERE [Name] = 'Mage'))--Desecrated Circlet
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22367, (SELECT ID FROM Class WHERE [Name] = 'Warlock'))--Desecrated Circlet
+GO
+-- Naxx Trash
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23664, 'Pauldrons of Elemental Fury', 85, (SELECT ID FROM Slot WHERE Name = 'Shoulder'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23666, 'Belt of the Grand Crusader', 85, (SELECT ID FROM Slot WHERE Name = 'Waist'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23044, 'Harbinger of Doom', 83, (SELECT ID FROM Slot WHERE Name = 'One-Hand'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23069, 'Necro-Knight''s Garb', 85, (SELECT ID FROM Slot WHERE Name = 'Chest'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23221, 'Misplaced Servo Arm', 83, (SELECT ID FROM Slot WHERE Name = 'One-Hand'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23226, 'Ghoul Skin Tunic', 83, (SELECT ID FROM Slot WHERE Name = 'Chest'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23237, 'Ring of the Eternal Flame', 83, (SELECT ID FROM Slot WHERE Name = 'Finger'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23238, 'Stygian Buckler', 83, (SELECT ID FROM Slot WHERE Name = 'Shield'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23663, 'Girdle of Elemental Fury', 85, (SELECT ID FROM Slot WHERE Name = 'Waist'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23665, 'Leggings of Elemental Fury', 85, (SELECT ID FROM Slot WHERE Name = 'Legs'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23667, 'Spaulders of the Grand Crusader', 85, (SELECT ID FROM Slot WHERE Name = 'Shoulder'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23668, 'Leggings of the Grand Crusader', 85, (SELECT ID FROM Slot WHERE Name = 'Legs'), 0, NULL)
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Trash' AND RaidID = (SELECT ID FROM Raid WHERE Name = 'Naxxramas')), 23664, 0.10)--Pauldrons of Elemental Fury
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Trash' AND RaidID = (SELECT ID FROM Raid WHERE Name = 'Naxxramas')), 23666, 0.10)--Belt of the Grand Crusader
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Trash' AND RaidID = (SELECT ID FROM Raid WHERE Name = 'Naxxramas')), 23044, 0.10)--Harbinger of Doom
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Trash' AND RaidID = (SELECT ID FROM Raid WHERE Name = 'Naxxramas')), 23069, 0.10)--Necro-Knight's Garb
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Trash' AND RaidID = (SELECT ID FROM Raid WHERE Name = 'Naxxramas')), 23221, 0.10)--Misplaced Servo Arm
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Trash' AND RaidID = (SELECT ID FROM Raid WHERE Name = 'Naxxramas')), 23226, 0.10)--Ghoul Skin Tunic
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Trash' AND RaidID = (SELECT ID FROM Raid WHERE Name = 'Naxxramas')), 23237, 0.10)--Ring of the Eternal Flame
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Trash' AND RaidID = (SELECT ID FROM Raid WHERE Name = 'Naxxramas')), 23238, 0.10)--Stygian Buckler
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Trash' AND RaidID = (SELECT ID FROM Raid WHERE Name = 'Naxxramas')), 23663, 0.10)--Girdle of Elemental Fury
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Trash' AND RaidID = (SELECT ID FROM Raid WHERE Name = 'Naxxramas')), 23665, 0.10)--Leggings of Elemental Fury
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Trash' AND RaidID = (SELECT ID FROM Raid WHERE Name = 'Naxxramas')), 23667, 0.10)--Spaulders of the Grand Crusader
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Trash' AND RaidID = (SELECT ID FROM Raid WHERE Name = 'Naxxramas')), 23668, 0.10)--Leggings of the Grand Crusader
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (23664, (SELECT ID FROM Class WHERE [Name] = 'Shaman'))--Pauldrons of Elemental Fury
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (23666, (SELECT ID FROM Class WHERE [Name] = 'Paladin'))--Belt of the Grand Crusader
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (23069, (SELECT ID FROM Class WHERE [Name] = 'Priest'))--Necro-Knight's Garb
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (23069, (SELECT ID FROM Class WHERE [Name] = 'Mage'))--Necro-Knight's Garb
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (23069, (SELECT ID FROM Class WHERE [Name] = 'Warlock'))--Necro-Knight's Garb
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (23665, (SELECT ID FROM Class WHERE [Name] = 'Shaman'))--Leggings of Elemental Fury
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (23667, (SELECT ID FROM Class WHERE [Name] = 'Paladin'))--Spaulders of the Grand Crusader
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (23668, (SELECT ID FROM Class WHERE [Name] = 'Paladin'))--Leggings of the Grand Crusader
+GO
+-- Anub'Rekhan
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22939, 'Band of Unanswered Prayers', 83, (SELECT ID FROM Slot WHERE Name = 'Finger'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22935, 'Touch of Frost', 83, (SELECT ID FROM Slot WHERE Name = 'Neck'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22937, 'Gem of Nerubis', 83, (SELECT ID FROM Slot WHERE Name = 'Off Hand'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22938, 'Cryptfiend Silk Cloak', 83, (SELECT ID FROM Slot WHERE Name = 'Back'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22936, 'Wristguards of Vengeance', 83, (SELECT ID FROM Slot WHERE Name = 'Wrist'), 0, NULL)
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Anub''Rekhan'), 22355, 0.34)--Desecrated Bracers
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Anub''Rekhan'), 22369, 0.27)--Desecrated Bindings
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Anub''Rekhan'), 22362, 0.26)--Desecrated Wristguards
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Anub''Rekhan'), 22939, 0.24)--Band of Unanswered Prayers
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Anub''Rekhan'), 22935, 0.19)--Touch of Frost
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Anub''Rekhan'), 22937, 0.18)--Gem of Nerubis
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Anub''Rekhan'), 22938, 0.16)--Cryptfiend Silk Cloak
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Anub''Rekhan'), 22936, 0.15)--Wristguards of Vengeance
+GO
+-- Grand Widow Faerlina
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22942, 'The Widow''s Embrace', 81, (SELECT ID FROM Slot WHERE Name = 'One-Hand'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22941, 'Polar Shoulder Pads', 83, (SELECT ID FROM Slot WHERE Name = 'Shoulder'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22806, 'Widow''s Remorse', 81, (SELECT ID FROM Slot WHERE Name = 'One-Hand'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22940, 'Icebane Pauldrons', 83, (SELECT ID FROM Slot WHERE Name = 'Shoulder'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22943, 'Malice Stone Pendant', 83, (SELECT ID FROM Slot WHERE Name = 'Neck'), 0, NULL)
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Grand Widow Faerlina'), 22369, 0.37)--Desecrated Bindings
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Grand Widow Faerlina'), 22355, 0.27)--Desecrated Bracers
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Grand Widow Faerlina'), 22362, 0.27)--Desecrated Wristguards
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Grand Widow Faerlina'), 22942, 0.20)--The Widow's Embrace
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Grand Widow Faerlina'), 22941, 0.19)--Polar Shoulder Pads
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Grand Widow Faerlina'), 22806, 0.18)--Widow's Remorse
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Grand Widow Faerlina'), 22940, 0.17)--Icebane Pauldrons
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Grand Widow Faerlina'), 22943, 0.17)--Malice Stone Pendant
+GO
+-- Maexxna
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22954, 'Kiss of the Spider', 85, (SELECT ID FROM Slot WHERE Name = 'Trinket'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22807, 'Wraith Blade', 83, (SELECT ID FROM Slot WHERE Name = 'One-Hand'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22947, 'Pendant of Forgotten Names', 85, (SELECT ID FROM Slot WHERE Name = 'Neck'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22804, 'Maexxna''s Fang', 83, (SELECT ID FROM Slot WHERE Name = 'One-Hand'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23220, 'Crystal Webbed Robe', 85, (SELECT ID FROM Slot WHERE Name = 'Chest'), 0, NULL)
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Maexxna'), 22364, 0.53)--Desecrated Handguards
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Maexxna'), 22371, 0.53)--Desecrated Gloves
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Maexxna'), 22357, 0.38)--Desecrated Gauntlets
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Maexxna'), 22954, 0.22)--Kiss of the Spider
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Maexxna'), 22807, 0.17)--Wraith Blade
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Maexxna'), 22947, 0.15)--Pendant of Forgotten Names
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Maexxna'), 22804, 0.14)--Maexxna's Fang
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Maexxna'), 23220, 0.12)--Crystal Webbed Robe
+GO
+-- Noth the Plaguebringer
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23030, 'Cloak of the Scourge', 83, (SELECT ID FROM Slot WHERE Name = 'Back'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23029, 'Noth''s Frigid Heart', 83, (SELECT ID FROM Slot WHERE Name = 'Off Hand'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23031, 'Band of the Inevitable', 83, (SELECT ID FROM Slot WHERE Name = 'Finger'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22816, 'Hatchet of Sundered Bone', 83, (SELECT ID FROM Slot WHERE Name = 'One-Hand'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23028, 'Hailstone Band', 83, (SELECT ID FROM Slot WHERE Name = 'Finger'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23006, 'Libram of Light', 83, (SELECT ID FROM Slot WHERE Name = 'Relic'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23005, 'Totem of Flowing Water', 83, (SELECT ID FROM Slot WHERE Name = 'Relic'), 0, NULL)
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Noth the Plaguebringer'), 22363, 0.41)--Desecrated Girdle
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Noth the Plaguebringer'), 22370, 0.24)--Desecrated Belt
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Noth the Plaguebringer'), 22356, 0.21)--Desecrated Waistguard
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Noth the Plaguebringer'), 23030, 0.19)--Cloak of the Scourge
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Noth the Plaguebringer'), 23029, 0.17)--Noth's Frigid Heart
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Noth the Plaguebringer'), 23031, 0.16)--Band of the Inevitable
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Noth the Plaguebringer'), 22816, 0.11)--Hatchet of Sundered Bone
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Noth the Plaguebringer'), 23028, 0.11)--Hailstone Band
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Noth the Plaguebringer'), 23006, 0.09)--Libram of Light
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Noth the Plaguebringer'), 23005, 0.05)--Totem of Flowing Water
+GO
+-- Heigan the Unclean
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23068, 'Legplates of Carnage', 83, (SELECT ID FROM Slot WHERE Name = 'Legs'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23033, 'Icy Scale Coif', 83, (SELECT ID FROM Slot WHERE Name = 'Head'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23035, 'Preceptor''s Hat', 83, (SELECT ID FROM Slot WHERE Name = 'Head'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23019, 'Icebane Helmet', 83, (SELECT ID FROM Slot WHERE Name = 'Head'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23036, 'Necklace of Necropsy', 83, (SELECT ID FROM Slot WHERE Name = 'Neck'), 0, NULL)
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Heigan the Unclean'), 22363, 0.39)--Desecrated Girdle
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Heigan the Unclean'), 22370, 0.37)--Desecrated Belt
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Heigan the Unclean'), 23068, 0.26)--Legplates of Carnage
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Heigan the Unclean'), 23033, 0.20)--Icy Scale Coif
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Heigan the Unclean'), 22356, 0.19)--Desecrated Waistguard
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Heigan the Unclean'), 23035, 0.16)--Preceptor's Hat
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Heigan the Unclean'), 23019, 0.11)--Icebane Helmet
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Heigan the Unclean'), 23036, 0.09)--Necklace of Necropsy
+GO
+-- Loatheb
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23038, 'Band of Unnatural Forces', 85, (SELECT ID FROM Slot WHERE Name = 'Finger'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23039, 'The Eye of Nerub', 83, (SELECT ID FROM Slot WHERE Name = 'Two-Hand'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23037, 'Ring of Spiritual Fervor', 85, (SELECT ID FROM Slot WHERE Name = 'Finger'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22800, 'Brimstone Staff', 83, (SELECT ID FROM Slot WHERE Name = 'Two-Hand'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23042, 'Loatheb''s Reflection', 85, (SELECT ID FROM Slot WHERE Name = 'Trinket'), 0, NULL)
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Loatheb'), 22352, 0.33)--Desecrated Legplates
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Loatheb'), 22359, 0.33)--Desecrated Legguards
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Loatheb'), 22366, 0.33)--Desecrated Leggings
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Loatheb'), 23038, 0.12)--Band of Unnatural Forces
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Loatheb'), 23039, 0.12)--The Eye of Nerub
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Loatheb'), 23037, 0.11)--Ring of Spiritual Fervor
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Loatheb'), 22800, 0.10)--Brimstone Staff
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Loatheb'), 23042, 0.09)--Loatheb's Reflection
+GO
+-- Instructor Razuvious
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23009, 'Wand of the Whispering Dead', 83, (SELECT ID FROM Slot WHERE Name = 'Ranged'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23018, 'Signet of the Fallen Defender', 83, (SELECT ID FROM Slot WHERE Name = 'Finger'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23004, 'Idol of Longevity', 83, (SELECT ID FROM Slot WHERE Name = 'Relic'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23219, 'Girdle of the Mentor', 85, (SELECT ID FROM Slot WHERE Name = 'Waist'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23017, 'Veil of Eclipse', 83, (SELECT ID FROM Slot WHERE Name = 'Back'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23014, 'Iblis, Blade of the Fallen Seraph', 81, (SELECT ID FROM Slot WHERE Name = 'One-Hand'), 0, NULL)
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Instructor Razuvious'), 22372, 0.32)--Desecrated Sandals
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Instructor Razuvious'), 22358, 0.28)--Desecrated Sabatons
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Instructor Razuvious'), 22365, 0.28)--Desecrated Boots
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Instructor Razuvious'), 23009, 0.18)--Wand of the Whispering Dead
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Instructor Razuvious'), 23018, 0.17)--Signet of the Fallen Defender
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Instructor Razuvious'), 23004, 0.15)--Idol of Longevity
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Instructor Razuvious'), 23219, 0.12)--Girdle of the Mentor
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Instructor Razuvious'), 23017, 0.11)--Veil of Eclipse
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Instructor Razuvious'), 23014, 0.10)--Iblis, Blade of the Fallen Seraph
+GO
+-- Gothik the Harvester
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23021, 'The Soul Harvester''s Bindings', 83, (SELECT ID FROM Slot WHERE Name = 'Wrist'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23032, 'Glacial Headdress', 83, (SELECT ID FROM Slot WHERE Name = 'Head'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23023, 'Sadist''s Collar', 83, (SELECT ID FROM Slot WHERE Name = 'Neck'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23020, 'Polar Helmet', 83, (SELECT ID FROM Slot WHERE Name = 'Head'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23073, 'Boots of Displacement', 83, (SELECT ID FROM Slot WHERE Name = 'Feet'), 0, NULL)
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Gothik the Harvester'), 22372, 0.40)--Desecrated Sandals
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Gothik the Harvester'), 22365, 0.26)--Desecrated Boots
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Gothik the Harvester'), 23021, 0.26)--The Soul Harvester's Bindings
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Gothik the Harvester'), 23032, 0.26)--Glacial Headdress
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Gothik the Harvester'), 22358, 0.23)--Desecrated Sabatons
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Gothik the Harvester'), 23023, 0.11)--Sadist's Collar
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Gothik the Harvester'), 23020, 0.09)--Polar Helmet
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Gothik the Harvester'), 23073, 0.09)--Boots of Displacement
+GO
+-- Four Horsemen
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22691, 'Corrupted Ashbringer', 86, (SELECT ID FROM Slot WHERE Name = 'Two-Hand'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22809, 'Maul of the Redeemed Crusader', 83, (SELECT ID FROM Slot WHERE Name = 'Two-Hand'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22811, 'Soulstring', 83, (SELECT ID FROM Slot WHERE Name = 'Ranged'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23025, 'Seal of the Damned', 85, (SELECT ID FROM Slot WHERE Name = 'Finger'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23027, 'Warmth of Forgiveness', 85, (SELECT ID FROM Slot WHERE Name = 'Trinket'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23071, 'Leggings of Apocalypse', 83, (SELECT ID FROM Slot WHERE Name = 'Legs'), 0, NULL)
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Four Horsemen'), 22349, 0.63)--Desecrated Breastplate
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Four Horsemen'), 22350, 0.48)--Desecrated Tunic
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Four Horsemen'), 22351, 0.46)--Desecrated Robe
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Four Horsemen'), 22691, 0.27)--Corrupted Ashbringer
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Four Horsemen'), 22809, 0.16)--Maul of the Redeemed Crusader
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Four Horsemen'), 22811, 0.15)--Soulstring
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Four Horsemen'), 23025, 0.10)--Seal of the Damned
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Four Horsemen'), 23027, 0.10)--Warmth of Forgiveness
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Four Horsemen'), 23071, 0.10)--Leggings of Apocalypse
+GO
+-- Patchwerk
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22960, 'Cloak of Suturing', 83, (SELECT ID FROM Slot WHERE Name = 'Back'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22961, 'Band of Reanimation', 83, (SELECT ID FROM Slot WHERE Name = 'Finger'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22815, 'Severance', 81, (SELECT ID FROM Slot WHERE Name = 'Two-Hand'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22820, 'Wand of Fates', 83, (SELECT ID FROM Slot WHERE Name = 'Ranged'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22818, 'The Plague Bearer', 83, (SELECT ID FROM Slot WHERE Name = 'Shield'), 0, NULL)
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Patchwerk'), 22368, 0.34)--Desecrated Shoulderpads
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Patchwerk'), 22354, 0.30)--Desecrated Pauldrons
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Patchwerk'), 22361, 0.28)--Desecrated Spaulders
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Patchwerk'), 22960, 0.21)--Cloak of Suturing
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Patchwerk'), 22961, 0.18)--Band of Reanimation
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Patchwerk'), 22815, 0.17)--Severance
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Patchwerk'), 22820, 0.17)--Wand of Fates
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Patchwerk'), 22818, 0.12)--The Plague Bearer
+GO
+-- Grobbulus
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22967, 'Icy Scale Spaulders', 83, (SELECT ID FROM Slot WHERE Name = 'Shoulder'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22810, 'Toxin Injector', 81, (SELECT ID FROM Slot WHERE Name = 'Ranged'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22988, 'The End of Dreams', 83, (SELECT ID FROM Slot WHERE Name = 'One-Hand'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22803, 'Midnight Haze', 81, (SELECT ID FROM Slot WHERE Name = 'One-Hand'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22968, 'Glacial Mantle', 83, (SELECT ID FROM Slot WHERE Name = 'Shoulder'), 0, NULL)
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Grobbulus'), 22354, 0.28)--Desecrated Pauldrons
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Grobbulus'), 22361, 0.28)--Desecrated Spaulders
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Grobbulus'), 22368, 0.26)--Desecrated Shoulderpads
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Grobbulus'), 22967, 0.22)--Icy Scale Spaulders
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Grobbulus'), 22810, 0.20)--Toxin Injector
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Grobbulus'), 22988, 0.19)--The End of Dreams
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Grobbulus'), 22803, 0.18)--Midnight Haze
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Grobbulus'), 22968, 0.14)--Glacial Mantle
+GO
+-- Gluth
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22813, 'Claymore of Unholy Might', 81, (SELECT ID FROM Slot WHERE Name = 'Two-Hand'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22981, 'Gluth''s Missing Collar', 83, (SELECT ID FROM Slot WHERE Name = 'Neck'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22994, 'Digested Hand of Power', 83, (SELECT ID FROM Slot WHERE Name = 'Off Hand'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23075, 'Death''s Bargain', 83, (SELECT ID FROM Slot WHERE Name = 'Shield'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22983, 'Rime Covered Mantle', 83, (SELECT ID FROM Slot WHERE Name = 'Shoulder'), 0, NULL)
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Gluth'), 22813, 0.23)--Claymore of Unholy Might
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Gluth'), 22981, 0.23)--Gluth's Missing Collar
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Gluth'), 22994, 0.16)--Digested Hand of Power
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Gluth'), 23075, 0.15)--Death's Bargain
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Gluth'), 22354, 0.15)--Desecrated Pauldrons
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Gluth'), 22358, 0.14)--Desecrated Sabatons
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Gluth'), 22983, 0.13)--Rime Covered Mantle
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Gluth'), 22363, 0.11)--Desecrated Girdle
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Gluth'), 22369, 0.10)--Desecrated Bindings
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Gluth'), 22355, 0.09)--Desecrated Bracers
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Gluth'), 22361, 0.09)--Desecrated Spaulders
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Gluth'), 22372, 0.07)--Desecrated Sandals
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Gluth'), 22368, 0.06)--Desecrated Shoulderpads
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Gluth'), 22365, 0.05)--Desecrated Boots
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Gluth'), 22356, 0.03)--Desecrated Waistguard
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Gluth'), 22362, 0.03)--Desecrated Wristguards
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Gluth'), 22370, 0.03)--Desecrated Belt
+GO
+-- Thaddius
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23070, 'Leggings of Polarity', 85, (SELECT ID FROM Slot WHERE Name = 'Legs'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22801, 'Spire of Twilight', 83, (SELECT ID FROM Slot WHERE Name = 'Two-Hand'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23001, 'Eye of Diminution', 85, (SELECT ID FROM Slot WHERE Name = 'Trinket'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22808, 'The Castigator', 83, (SELECT ID FROM Slot WHERE Name = 'One-Hand'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23000, 'Plated Abomination Ribcage', 85, (SELECT ID FROM Slot WHERE Name = 'Chest'), 0, NULL)
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Thaddius'), 22353, 0.63)--Desecrated Helmet
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Thaddius'), 22360, 0.48)--Desecrated Headpiece
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Thaddius'), 22367, 0.46)--Desecrated Circlet
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Thaddius'), 23070, 0.27)--Leggings of Polarity
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Thaddius'), 22801, 0.16)--Spire of Twilight
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Thaddius'), 23001, 0.15)--Eye of Diminution
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Thaddius'), 22808, 0.10)--The Castigator
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Thaddius'), 23000, 0.10)--Plated Abomination Ribcage
+GO
+-- Sapphiron
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23047, 'Eye of the Dead', 90, (SELECT ID FROM Slot WHERE Name = 'Trinket'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23045, 'Shroud of Dominion', 90, (SELECT ID FROM Slot WHERE Name = 'Back'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23242, 'Claw of the Frost Wyrm', 88, (SELECT ID FROM Slot WHERE Name = 'Off Hand'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23043, 'The Face of Death', 90, (SELECT ID FROM Slot WHERE Name = 'Shield'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23041, 'Slayer''s Crest', 90, (SELECT ID FROM Slot WHERE Name = 'Trinket'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23048, 'Sapphiron''s Right Eye', 90, (SELECT ID FROM Slot WHERE Name = 'Off Hand'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23040, 'Glyph of Deflection', 90, (SELECT ID FROM Slot WHERE Name = 'Trinket'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23046, 'The Restrained Essence of Sapphiron', 90, (SELECT ID FROM Slot WHERE Name = 'Trinket'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23049, 'Sapphiron''s Left Eye', 90, (SELECT ID FROM Slot WHERE Name = 'Off Hand'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23050, 'Cloak of the Necropolis', 90, (SELECT ID FROM Slot WHERE Name = 'Back'), 0, NULL)
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Sapphiron'), 23047, 0.39)--Eye of the Dead
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Sapphiron'), 23045, 0.29)--Shroud of Dominion
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Sapphiron'), 23242, 0.21)--Claw of the Frost Wyrm
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Sapphiron'), 23043, 0.18)--The Face of Death
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Sapphiron'), 23041, 0.14)--Slayer's Crest
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Sapphiron'), 23048, 0.14)--Sapphiron's Right Eye
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Sapphiron'), 23040, 0.11)--Glyph of Deflection
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Sapphiron'), 23046, 0.11)--The Restrained Essence of Sapphiron
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Sapphiron'), 23049, 0.07)--Sapphiron's Left Eye
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Sapphiron'), 23050, 0.07)--Cloak of the Necropolis
+GO
+-- Kel'Thuzad
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22520, 'The Phylactery of Kel''Thuzad', 60, NULL, 1, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23206, 'Mark of the Champion', 90, (SELECT ID FROM Slot WHERE Name = 'Trinket'), 0, 22520)--AP
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23207, 'Mark of the Champion', 90, (SELECT ID FROM Slot WHERE Name = 'Trinket'), 0, 22520)--SP
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23065, 'Ring of the Earthshatterer', 92, (SELECT ID FROM Slot WHERE Name = 'Finger'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23066, 'Ring of Redemption', 92, (SELECT ID FROM Slot WHERE Name = 'Finger'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22798, 'Might of Menethil', 89, (SELECT ID FROM Slot WHERE Name = 'Two-Hand'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23057, 'Gem of Trapped Innocents', 92, (SELECT ID FROM Slot WHERE Name = 'Neck'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23060, 'Bonescythe Ring', 92, (SELECT ID FROM Slot WHERE Name = 'Finger'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23059, 'Ring of the Dreadnaught', 92, (SELECT ID FROM Slot WHERE Name = 'Finger'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22802, 'Kingsfall', 89, (SELECT ID FROM Slot WHERE Name = 'One-Hand'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23053, 'Stormrage''s Talisman of Seething', 92, (SELECT ID FROM Slot WHERE Name = 'Neck'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22799, 'Soulseeker', 89, (SELECT ID FROM Slot WHERE Name = 'Two-Hand'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23056, 'Hammer of the Twisting Nether', 89, (SELECT ID FROM Slot WHERE Name = 'One-Hand'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23062, 'Frostfire Ring', 92, (SELECT ID FROM Slot WHERE Name = 'Finger'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23067, 'Ring of the Cryptstalker', 92, (SELECT ID FROM Slot WHERE Name = 'Finger'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22821, 'Doomfinger', 92, (SELECT ID FROM Slot WHERE Name = 'Ranged'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23061, 'Ring of Faith', 92, (SELECT ID FROM Slot WHERE Name = 'Finger'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23054, 'Gressil, Dawn of Ruin', 89, (SELECT ID FROM Slot WHERE Name = 'One-Hand'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23063, 'Plagueheart Ring', 92, (SELECT ID FROM Slot WHERE Name = 'Finger'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22819, 'Shield of Condemnation', 92, (SELECT ID FROM Slot WHERE Name = 'Shield'), 0, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23064, 'Ring of the Dreamwalker', 92, (SELECT ID FROM Slot WHERE Name = 'Finger'), 0, NULL)
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Kel''Thuzad'), 22520, 1.00)--The Phylactery of Kel'Thuzad
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Kel''Thuzad'), 23065, 0.25)--Ring of the Earthshatterer
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Kel''Thuzad'), 23066, 0.25)--Ring of Redemption
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Kel''Thuzad'), 22798, 0.35)--Might of Menethil
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Kel''Thuzad'), 23057, 0.35)--Gem of Trapped Innocents
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Kel''Thuzad'), 23060, 0.25)--Bonescythe Ring
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Kel''Thuzad'), 23059, 0.25)--Ring of the Dreadnaught
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Kel''Thuzad'), 22802, 0.22)--Kingsfall
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Kel''Thuzad'), 23053, 0.22)--Stormrage's Talisman of Seething
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Kel''Thuzad'), 22799, 0.17)--Soulseeker
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Kel''Thuzad'), 23056, 0.17)--Hammer of the Twisting Nether
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Kel''Thuzad'), 23062, 0.25)--Frostfire Ring
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Kel''Thuzad'), 23067, 0.25)--Ring of the Cryptstalker
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Kel''Thuzad'), 22821, 0.13)--Doomfinger
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Kel''Thuzad'), 23061, 0.25)--Ring of Faith
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Kel''Thuzad'), 23054, 0.09)--Gressil, Dawn of Ruin
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Kel''Thuzad'), 23063, 0.25)--Plagueheart Ring
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Kel''Thuzad'), 22819, 0.04)--Shield of Condemnation
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Kel''Thuzad'), 23064, 0.25)--Ring of the Dreamwalker
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (23065, (SELECT ID FROM Class WHERE [Name] = 'Shaman'))--Ring of the Earthshatterer
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (23066, (SELECT ID FROM Class WHERE [Name] = 'Paladin'))--Ring of Redemption
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (23060, (SELECT ID FROM Class WHERE [Name] = 'Rogue'))--Bonescythe Ring
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (23059, (SELECT ID FROM Class WHERE [Name] = 'Warrior'))--Ring of the Dreadnaught
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (23062, (SELECT ID FROM Class WHERE [Name] = 'Mage'))--Frostfire Ring
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (23067, (SELECT ID FROM Class WHERE [Name] = 'Hunter'))--Ring of the Cryptstalker
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (23061, (SELECT ID FROM Class WHERE [Name] = 'Priest'))--Ring of Faith
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (23063, (SELECT ID FROM Class WHERE [Name] = 'Warlock'))--Plagueheart Ring
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (23064, (SELECT ID FROM Class WHERE [Name] = 'Druid'))--Ring of the Dreamwalker
 GO

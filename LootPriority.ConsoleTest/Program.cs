@@ -53,6 +53,10 @@ namespace LootPriority.ConsoleTest
                 "Lady Maye's Pendant",
                 "Plans: Stronghold Gauntlets",
                 "Skullflame Shield",
+                "Myrmidon's Signet",
+                "Plans: Titanic Leggings",
+                "Power of the Scourge",
+                "Might of the Scourge",
             };
 
             var bossDrops = new Dictionary<string, List<BossLoot>>();
@@ -65,7 +69,7 @@ namespace LootPriority.ConsoleTest
                     var bossPage = $"{wowhead}{(bossId.Key == "Four Horsemen" ? "object" : "npc")}={bossMob}".GetAsync().GetAwaiter().GetResult().Content.ReadAsStringAsync().GetAwaiter().GetResult();
                     foreach (var line in bossPage.Split('\n'))
                     {
-                        if (!line.StartsWith("new Listview({template: 'item', id: 'drops'")) continue;
+                        if (!line.StartsWith("new Listview({template: 'item', id: 'drops'") && !line.StartsWith("new Listview({template: 'item', id: 'contains'")) continue;
 
                         var dataString = "data:";
                         var start = line.IndexOf(dataString) + dataString.Length;
@@ -167,7 +171,8 @@ namespace LootPriority.ConsoleTest
                 { 16, Slot.Back },
                 { 17, Slot.TwoHand },
                 { 21, Slot.MainHand },
-                { 23, Slot.OffHand },
+                { 22, Slot.OffHand }, // weapon
+                { 23, Slot.OffHand }, // held-in-off-hand
                 { 28, Slot.Relic },
             };
         }
@@ -196,6 +201,7 @@ namespace LootPriority.ConsoleTest
                 { "Flamegor", new string[] { "11981" } },
                 { "Chromaggus", new string[] { "14020" } },
                 { "Nefarian", new string[] { "11583" } },
+                { "AQ40 Trash", new string[] { "15277", "15264", "15311", "15262", "15312", "15247", "15252", "15249", "15246", "15250", "15233", "15240", "15229", "15235", "15230", "15236", } },
                 { "The Prophet Skeram", new string[] { "15263" } },
                 { "Bug Trio", new string[] { "15543", "15544", "15511" } },
                 { "Battleguard Sartura", new string[] { "15516" } },
@@ -205,6 +211,7 @@ namespace LootPriority.ConsoleTest
                 { "Twin Emperors", new string[] { "15275", "15276" } },
                 { "Ouro", new string[] { "15517" } },
                 { "C'Thun", new string[] { "15727" } },
+                { "Naxx Trash", new string[] { "16446" } },
                 { "Anub'Rekhan", new string[] { "15956" } },
                 { "Grand Widow Faerlina", new string[] { "15953" } },
                 { "Maexxna", new string[] { "15952" } },
@@ -213,7 +220,7 @@ namespace LootPriority.ConsoleTest
                 { "Loatheb", new string[] { "16011" } },
                 { "Instructor Razuvious", new string[] { "16061" } },
                 { "Gothik the Harvester", new string[] { "16060" } },
-                { "Four Horsemen", new string[] { "181366" } }, //loot code not working for this loot chest object
+                { "Four Horsemen", new string[] { "181366" } },
                 { "Patchwerk", new string[] { "16028" } },
                 { "Grobbulus", new string[] { "15931" } },
                 { "Gluth", new string[] { "15932" } },
