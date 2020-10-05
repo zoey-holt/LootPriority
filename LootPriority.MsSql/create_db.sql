@@ -1532,55 +1532,8 @@ INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name
 INSERT INTO ItemClass (ItemID, ClassID) VALUES ((SELECT ID FROM Item WHERE [Name] = 'Striker''s Hauberk'), (SELECT ID FROM Class WHERE [Name] = 'Hunter'))
 GO
 
+
 -- Naxx T3
-INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22355, 'Desecrated Bracers', 60, NULL, 1, NULL)
-INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22369, 'Desecrated Bindings', 60, NULL, 1, NULL)
-INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22362, 'Desecrated Wristguards', 60, NULL, 1, NULL)
-INSERT INTO ItemClass (ItemID, ClassID) VALUES (22355, (SELECT ID FROM Class WHERE [Name] = 'Warrior'))--Desecrated Bracers
-INSERT INTO ItemClass (ItemID, ClassID) VALUES (22355, (SELECT ID FROM Class WHERE [Name] = 'Rogue'))--Desecrated Bracers
-INSERT INTO ItemClass (ItemID, ClassID) VALUES (22369, (SELECT ID FROM Class WHERE [Name] = 'Priest'))--Desecrated Bindings
-INSERT INTO ItemClass (ItemID, ClassID) VALUES (22369, (SELECT ID FROM Class WHERE [Name] = 'Mage'))--Desecrated Bindings
-INSERT INTO ItemClass (ItemID, ClassID) VALUES (22369, (SELECT ID FROM Class WHERE [Name] = 'Warlock'))--Desecrated Bindings
-INSERT INTO ItemClass (ItemID, ClassID) VALUES (22362, (SELECT ID FROM Class WHERE [Name] = 'Paladin'))--Desecrated Wristguards
-INSERT INTO ItemClass (ItemID, ClassID) VALUES (22362, (SELECT ID FROM Class WHERE [Name] = 'Hunter'))--Desecrated Wristguards
-INSERT INTO ItemClass (ItemID, ClassID) VALUES (22362, (SELECT ID FROM Class WHERE [Name] = 'Shaman'))--Desecrated Wristguards
-INSERT INTO ItemClass (ItemID, ClassID) VALUES (22362, (SELECT ID FROM Class WHERE [Name] = 'Druid'))--Desecrated Wristguards
-INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22364, 'Desecrated Handguards', 60, NULL, 1, NULL)
-INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22371, 'Desecrated Gloves', 60, NULL, 1, NULL)
-INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22357, 'Desecrated Gauntlets', 60, NULL, 1, NULL)
-INSERT INTO ItemClass (ItemID, ClassID) VALUES (22364, (SELECT ID FROM Class WHERE [Name] = 'Paladin'))--Desecrated Handguards
-INSERT INTO ItemClass (ItemID, ClassID) VALUES (22364, (SELECT ID FROM Class WHERE [Name] = 'Hunter'))--Desecrated Handguards
-INSERT INTO ItemClass (ItemID, ClassID) VALUES (22364, (SELECT ID FROM Class WHERE [Name] = 'Shaman'))--Desecrated Handguards
-INSERT INTO ItemClass (ItemID, ClassID) VALUES (22364, (SELECT ID FROM Class WHERE [Name] = 'Druid'))--Desecrated Handguards
-INSERT INTO ItemClass (ItemID, ClassID) VALUES (22371, (SELECT ID FROM Class WHERE [Name] = 'Priest'))--Desecrated Gloves
-INSERT INTO ItemClass (ItemID, ClassID) VALUES (22371, (SELECT ID FROM Class WHERE [Name] = 'Mage'))--Desecrated Gloves
-INSERT INTO ItemClass (ItemID, ClassID) VALUES (22371, (SELECT ID FROM Class WHERE [Name] = 'Warlock'))--Desecrated Gloves
-INSERT INTO ItemClass (ItemID, ClassID) VALUES (22357, (SELECT ID FROM Class WHERE [Name] = 'Warrior'))--Desecrated Gauntlets
-INSERT INTO ItemClass (ItemID, ClassID) VALUES (22357, (SELECT ID FROM Class WHERE [Name] = 'Rogue'))--Desecrated Gauntlets
-INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22363, 'Desecrated Girdle', 60, NULL, 1, NULL)
-INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22370, 'Desecrated Belt', 60, NULL, 1, NULL)
-INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22356, 'Desecrated Waistguard', 60, NULL, 1, NULL)
-INSERT INTO ItemClass (ItemID, ClassID) VALUES (22363, (SELECT ID FROM Class WHERE [Name] = 'Paladin'))--Desecrated Girdle
-INSERT INTO ItemClass (ItemID, ClassID) VALUES (22363, (SELECT ID FROM Class WHERE [Name] = 'Hunter'))--Desecrated Girdle
-INSERT INTO ItemClass (ItemID, ClassID) VALUES (22363, (SELECT ID FROM Class WHERE [Name] = 'Shaman'))--Desecrated Girdle
-INSERT INTO ItemClass (ItemID, ClassID) VALUES (22363, (SELECT ID FROM Class WHERE [Name] = 'Druid'))--Desecrated Girdle
-INSERT INTO ItemClass (ItemID, ClassID) VALUES (22370, (SELECT ID FROM Class WHERE [Name] = 'Priest'))--Desecrated Belt
-INSERT INTO ItemClass (ItemID, ClassID) VALUES (22370, (SELECT ID FROM Class WHERE [Name] = 'Mage'))--Desecrated Belt
-INSERT INTO ItemClass (ItemID, ClassID) VALUES (22370, (SELECT ID FROM Class WHERE [Name] = 'Warlock'))--Desecrated Belt
-INSERT INTO ItemClass (ItemID, ClassID) VALUES (22356, (SELECT ID FROM Class WHERE [Name] = 'Warrior'))--Desecrated Waistguard
-INSERT INTO ItemClass (ItemID, ClassID) VALUES (22356, (SELECT ID FROM Class WHERE [Name] = 'Rogue'))--Desecrated Waistguard
-INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22352, 'Desecrated Legplates', 60, NULL, 1, NULL)
-INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22359, 'Desecrated Legguards', 60, NULL, 1, NULL)
-INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22366, 'Desecrated Leggings', 60, NULL, 1, NULL)
-INSERT INTO ItemClass (ItemID, ClassID) VALUES (22352, (SELECT ID FROM Class WHERE [Name] = 'Warrior'))--Desecrated Legplates
-INSERT INTO ItemClass (ItemID, ClassID) VALUES (22352, (SELECT ID FROM Class WHERE [Name] = 'Rogue'))--Desecrated Legplates
-INSERT INTO ItemClass (ItemID, ClassID) VALUES (22359, (SELECT ID FROM Class WHERE [Name] = 'Paladin'))--Desecrated Legguards
-INSERT INTO ItemClass (ItemID, ClassID) VALUES (22359, (SELECT ID FROM Class WHERE [Name] = 'Hunter'))--Desecrated Legguards
-INSERT INTO ItemClass (ItemID, ClassID) VALUES (22359, (SELECT ID FROM Class WHERE [Name] = 'Shaman'))--Desecrated Legguards
-INSERT INTO ItemClass (ItemID, ClassID) VALUES (22359, (SELECT ID FROM Class WHERE [Name] = 'Druid'))--Desecrated Legguards
-INSERT INTO ItemClass (ItemID, ClassID) VALUES (22366, (SELECT ID FROM Class WHERE [Name] = 'Priest'))--Desecrated Leggings
-INSERT INTO ItemClass (ItemID, ClassID) VALUES (22366, (SELECT ID FROM Class WHERE [Name] = 'Mage'))--Desecrated Leggings
-INSERT INTO ItemClass (ItemID, ClassID) VALUES (22366, (SELECT ID FROM Class WHERE [Name] = 'Warlock'))--Desecrated Leggings
 INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22372, 'Desecrated Sandals', 60, NULL, 1, NULL)
 INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22358, 'Desecrated Sabatons', 60, NULL, 1, NULL)
 INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22365, 'Desecrated Boots', 60, NULL, 1, NULL)
@@ -1593,6 +1546,54 @@ INSERT INTO ItemClass (ItemID, ClassID) VALUES (22365, (SELECT ID FROM Class WHE
 INSERT INTO ItemClass (ItemID, ClassID) VALUES (22365, (SELECT ID FROM Class WHERE [Name] = 'Hunter'))--Desecrated Boots
 INSERT INTO ItemClass (ItemID, ClassID) VALUES (22365, (SELECT ID FROM Class WHERE [Name] = 'Shaman'))--Desecrated Boots
 INSERT INTO ItemClass (ItemID, ClassID) VALUES (22365, (SELECT ID FROM Class WHERE [Name] = 'Druid'))--Desecrated Boots
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22352, 'Desecrated Legplates', 60, NULL, 1, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22359, 'Desecrated Legguards', 60, NULL, 1, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22366, 'Desecrated Leggings', 60, NULL, 1, NULL)
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22352, (SELECT ID FROM Class WHERE [Name] = 'Warrior'))--Desecrated Legplates
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22352, (SELECT ID FROM Class WHERE [Name] = 'Rogue'))--Desecrated Legplates
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22359, (SELECT ID FROM Class WHERE [Name] = 'Paladin'))--Desecrated Legguards
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22359, (SELECT ID FROM Class WHERE [Name] = 'Hunter'))--Desecrated Legguards
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22359, (SELECT ID FROM Class WHERE [Name] = 'Shaman'))--Desecrated Legguards
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22359, (SELECT ID FROM Class WHERE [Name] = 'Druid'))--Desecrated Legguards
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22366, (SELECT ID FROM Class WHERE [Name] = 'Priest'))--Desecrated Leggings
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22366, (SELECT ID FROM Class WHERE [Name] = 'Mage'))--Desecrated Leggings
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22366, (SELECT ID FROM Class WHERE [Name] = 'Warlock'))--Desecrated Leggings
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22363, 'Desecrated Girdle', 60, NULL, 1, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22370, 'Desecrated Belt', 60, NULL, 1, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22356, 'Desecrated Waistguard', 60, NULL, 1, NULL)
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22363, (SELECT ID FROM Class WHERE [Name] = 'Paladin'))--Desecrated Girdle
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22363, (SELECT ID FROM Class WHERE [Name] = 'Hunter'))--Desecrated Girdle
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22363, (SELECT ID FROM Class WHERE [Name] = 'Shaman'))--Desecrated Girdle
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22363, (SELECT ID FROM Class WHERE [Name] = 'Druid'))--Desecrated Girdle
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22370, (SELECT ID FROM Class WHERE [Name] = 'Priest'))--Desecrated Belt
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22370, (SELECT ID FROM Class WHERE [Name] = 'Mage'))--Desecrated Belt
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22370, (SELECT ID FROM Class WHERE [Name] = 'Warlock'))--Desecrated Belt
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22356, (SELECT ID FROM Class WHERE [Name] = 'Warrior'))--Desecrated Waistguard
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22356, (SELECT ID FROM Class WHERE [Name] = 'Rogue'))--Desecrated Waistguard
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22364, 'Desecrated Handguards', 60, NULL, 1, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22371, 'Desecrated Gloves', 60, NULL, 1, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22357, 'Desecrated Gauntlets', 60, NULL, 1, NULL)
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22364, (SELECT ID FROM Class WHERE [Name] = 'Paladin'))--Desecrated Handguards
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22364, (SELECT ID FROM Class WHERE [Name] = 'Hunter'))--Desecrated Handguards
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22364, (SELECT ID FROM Class WHERE [Name] = 'Shaman'))--Desecrated Handguards
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22364, (SELECT ID FROM Class WHERE [Name] = 'Druid'))--Desecrated Handguards
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22371, (SELECT ID FROM Class WHERE [Name] = 'Priest'))--Desecrated Gloves
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22371, (SELECT ID FROM Class WHERE [Name] = 'Mage'))--Desecrated Gloves
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22371, (SELECT ID FROM Class WHERE [Name] = 'Warlock'))--Desecrated Gloves
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22357, (SELECT ID FROM Class WHERE [Name] = 'Warrior'))--Desecrated Gauntlets
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22357, (SELECT ID FROM Class WHERE [Name] = 'Rogue'))--Desecrated Gauntlets
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22355, 'Desecrated Bracers', 60, NULL, 1, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22369, 'Desecrated Bindings', 60, NULL, 1, NULL)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22362, 'Desecrated Wristguards', 60, NULL, 1, NULL)
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22355, (SELECT ID FROM Class WHERE [Name] = 'Warrior'))--Desecrated Bracers
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22355, (SELECT ID FROM Class WHERE [Name] = 'Rogue'))--Desecrated Bracers
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22369, (SELECT ID FROM Class WHERE [Name] = 'Priest'))--Desecrated Bindings
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22369, (SELECT ID FROM Class WHERE [Name] = 'Mage'))--Desecrated Bindings
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22369, (SELECT ID FROM Class WHERE [Name] = 'Warlock'))--Desecrated Bindings
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22362, (SELECT ID FROM Class WHERE [Name] = 'Paladin'))--Desecrated Wristguards
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22362, (SELECT ID FROM Class WHERE [Name] = 'Hunter'))--Desecrated Wristguards
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22362, (SELECT ID FROM Class WHERE [Name] = 'Shaman'))--Desecrated Wristguards
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22362, (SELECT ID FROM Class WHERE [Name] = 'Druid'))--Desecrated Wristguards
 INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22349, 'Desecrated Breastplate', 60, NULL, 1, NULL)
 INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22350, 'Desecrated Tunic', 60, NULL, 1, NULL)
 INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22351, 'Desecrated Robe', 60, NULL, 1, NULL)
@@ -1629,6 +1630,150 @@ INSERT INTO ItemClass (ItemID, ClassID) VALUES (22360, (SELECT ID FROM Class WHE
 INSERT INTO ItemClass (ItemID, ClassID) VALUES (22367, (SELECT ID FROM Class WHERE [Name] = 'Priest'))--Desecrated Circlet
 INSERT INTO ItemClass (ItemID, ClassID) VALUES (22367, (SELECT ID FROM Class WHERE [Name] = 'Mage'))--Desecrated Circlet
 INSERT INTO ItemClass (ItemID, ClassID) VALUES (22367, (SELECT ID FROM Class WHERE [Name] = 'Warlock'))--Desecrated Circlet
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22498, 'Frostfire Circlet', 88, (SELECT ID FROM Slot WHERE Name = 'Head'), 0, 22367)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22499, 'Frostfire Shoulderpads', 86, (SELECT ID FROM Slot WHERE Name = 'Shoulder'), 0, 22368)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22496, 'Frostfire Robe', 92, (SELECT ID FROM Slot WHERE Name = 'Chest'), 0, 22351)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22503, 'Frostfire Bindings', 88, (SELECT ID FROM Slot WHERE Name = 'Wrist'), 0, 22369)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22501, 'Frostfire Gloves', 88, (SELECT ID FROM Slot WHERE Name = 'Hands'), 0, 22371)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22502, 'Frostfire Belt', 88, (SELECT ID FROM Slot WHERE Name = 'Waist'), 0, 22370)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22497, 'Frostfire Leggings', 88, (SELECT ID FROM Slot WHERE Name = 'Legs'), 0, 22366)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22500, 'Frostfire Sandals', 86, (SELECT ID FROM Slot WHERE Name = 'Feet'), 0, 22372)
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22498, (SELECT ID FROM Class WHERE [Name] = 'Mage'))--Frostfire Circlet
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22499, (SELECT ID FROM Class WHERE [Name] = 'Mage'))--Frostfire Shoulderpads
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22496, (SELECT ID FROM Class WHERE [Name] = 'Mage'))--Frostfire Robe
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22503, (SELECT ID FROM Class WHERE [Name] = 'Mage'))--Frostfire Bindings
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22501, (SELECT ID FROM Class WHERE [Name] = 'Mage'))--Frostfire Gloves
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22502, (SELECT ID FROM Class WHERE [Name] = 'Mage'))--Frostfire Belt
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22497, (SELECT ID FROM Class WHERE [Name] = 'Mage'))--Frostfire Leggings
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22500, (SELECT ID FROM Class WHERE [Name] = 'Mage'))--Frostfire Sandals
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22514, 'Circlet of Faith', 88, (SELECT ID FROM Slot WHERE Name = 'Head'), 0, 22367)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22515, 'Shoulderpads of Faith', 86, (SELECT ID FROM Slot WHERE Name = 'Shoulder'), 0, 22368)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22512, 'Robe of Faith', 92, (SELECT ID FROM Slot WHERE Name = 'Chest'), 0, 22351)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22519, 'Bindings of Faith', 88, (SELECT ID FROM Slot WHERE Name = 'Wrist'), 0, 22369)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22517, 'Gloves of Faith', 88, (SELECT ID FROM Slot WHERE Name = 'Hands'), 0, 22371)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22518, 'Belt of Faith', 88, (SELECT ID FROM Slot WHERE Name = 'Waist'), 0, 22370)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22513, 'Leggings of Faith', 88, (SELECT ID FROM Slot WHERE Name = 'Legs'), 0, 22366)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22516, 'Sandals of Faith', 86, (SELECT ID FROM Slot WHERE Name = 'Feet'), 0, 22372)
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22514, (SELECT ID FROM Class WHERE [Name] = 'Priest'))--Circlet of Faith
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22515, (SELECT ID FROM Class WHERE [Name] = 'Priest'))--Shoulderpads of Faith
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22512, (SELECT ID FROM Class WHERE [Name] = 'Priest'))--Robe of Faith
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22519, (SELECT ID FROM Class WHERE [Name] = 'Priest'))--Bindings of Faith
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22517, (SELECT ID FROM Class WHERE [Name] = 'Priest'))--Gloves of Faith
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22518, (SELECT ID FROM Class WHERE [Name] = 'Priest'))--Belt of Faith
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22513, (SELECT ID FROM Class WHERE [Name] = 'Priest'))--Leggings of Faith
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22516, (SELECT ID FROM Class WHERE [Name] = 'Priest'))--Sandals of Faith
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22506, 'Plagueheart Circlet', 88, (SELECT ID FROM Slot WHERE Name = 'Head'), 0, 22367)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22507, 'Plagueheart Shoulderpads', 86, (SELECT ID FROM Slot WHERE Name = 'Shoulder'), 0, 22368)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22504, 'Plagueheart Robe', 92, (SELECT ID FROM Slot WHERE Name = 'Chest'), 0, 22351)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22511, 'Plagueheart Bindings', 88, (SELECT ID FROM Slot WHERE Name = 'Wrist'), 0, 22369)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22509, 'Plagueheart Gloves', 88, (SELECT ID FROM Slot WHERE Name = 'Hands'), 0, 22371)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22510, 'Plagueheart Belt', 88, (SELECT ID FROM Slot WHERE Name = 'Waist'), 0, 22370)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22505, 'Plagueheart Leggings', 88, (SELECT ID FROM Slot WHERE Name = 'Legs'), 0, 22366)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22508, 'Plagueheart Sandals', 86, (SELECT ID FROM Slot WHERE Name = 'Feet'), 0, 22372)
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22506, (SELECT ID FROM Class WHERE [Name] = 'Warlock'))--Plagueheart Circlet
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22507, (SELECT ID FROM Class WHERE [Name] = 'Warlock'))--Plagueheart Shoulderpads
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22504, (SELECT ID FROM Class WHERE [Name] = 'Warlock'))--Plagueheart Robe
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22511, (SELECT ID FROM Class WHERE [Name] = 'Warlock'))--Plagueheart Bindings
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22509, (SELECT ID FROM Class WHERE [Name] = 'Warlock'))--Plagueheart Gloves
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22510, (SELECT ID FROM Class WHERE [Name] = 'Warlock'))--Plagueheart Belt
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22505, (SELECT ID FROM Class WHERE [Name] = 'Warlock'))--Plagueheart Leggings
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22508, (SELECT ID FROM Class WHERE [Name] = 'Warlock'))--Plagueheart Sandals
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22490, 'Dreamwalker Headpiece', 88, (SELECT ID FROM Slot WHERE Name = 'Head'), 0, 22360)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22491, 'Dreamwalker Spaulders', 86, (SELECT ID FROM Slot WHERE Name = 'Shoulder'), 0, 22361)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22488, 'Dreamwalker Tunic', 92, (SELECT ID FROM Slot WHERE Name = 'Chest'), 0, 22350)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22495, 'Dreamwalker Wristguards', 88, (SELECT ID FROM Slot WHERE Name = 'Wrist'), 0, 22362)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22493, 'Dreamwalker Handguards', 88, (SELECT ID FROM Slot WHERE Name = 'Hands'), 0, 22364)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22494, 'Dreamwalker Girdle', 88, (SELECT ID FROM Slot WHERE Name = 'Waist'), 0, 22363)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22489, 'Dreamwalker Legguards', 88, (SELECT ID FROM Slot WHERE Name = 'Legs'), 0, 22359)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22492, 'Dreamwalker Boots', 86, (SELECT ID FROM Slot WHERE Name = 'Feet'), 0, 22365)
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22490, (SELECT ID FROM Class WHERE [Name] = 'Druid'))--Dreamwalker Circlet
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22491, (SELECT ID FROM Class WHERE [Name] = 'Druid'))--Dreamwalker Shoulderpads
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22488, (SELECT ID FROM Class WHERE [Name] = 'Druid'))--Dreamwalker Robe
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22495, (SELECT ID FROM Class WHERE [Name] = 'Druid'))--Dreamwalker Bindings
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22493, (SELECT ID FROM Class WHERE [Name] = 'Druid'))--Dreamwalker Gloves
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22494, (SELECT ID FROM Class WHERE [Name] = 'Druid'))--Dreamwalker Belt
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22489, (SELECT ID FROM Class WHERE [Name] = 'Druid'))--Dreamwalker Leggings
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22492, (SELECT ID FROM Class WHERE [Name] = 'Druid'))--Dreamwalker Sandals
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22438, 'Cryptstalker Headpiece', 88, (SELECT ID FROM Slot WHERE Name = 'Head'), 0, 22360)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22439, 'Cryptstalker Spaulders', 86, (SELECT ID FROM Slot WHERE Name = 'Shoulder'), 0, 22361)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22436, 'Cryptstalker Tunic', 92, (SELECT ID FROM Slot WHERE Name = 'Chest'), 0, 22350)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22443, 'Cryptstalker Wristguards', 88, (SELECT ID FROM Slot WHERE Name = 'Wrist'), 0, 22362)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22441, 'Cryptstalker Handguards', 88, (SELECT ID FROM Slot WHERE Name = 'Hands'), 0, 22364)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22442, 'Cryptstalker Girdle', 88, (SELECT ID FROM Slot WHERE Name = 'Waist'), 0, 22363)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22437, 'Cryptstalker Legguards', 88, (SELECT ID FROM Slot WHERE Name = 'Legs'), 0, 22359)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22440, 'Cryptstalker Boots', 86, (SELECT ID FROM Slot WHERE Name = 'Feet'), 0, 22365)
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22438, (SELECT ID FROM Class WHERE [Name] = 'Hunter'))--Cryptstalker Circlet
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22439, (SELECT ID FROM Class WHERE [Name] = 'Hunter'))--Cryptstalker Shoulderpads
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22436, (SELECT ID FROM Class WHERE [Name] = 'Hunter'))--Cryptstalker Robe
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22443, (SELECT ID FROM Class WHERE [Name] = 'Hunter'))--Cryptstalker Bindings
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22441, (SELECT ID FROM Class WHERE [Name] = 'Hunter'))--Cryptstalker Gloves
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22442, (SELECT ID FROM Class WHERE [Name] = 'Hunter'))--Cryptstalker Belt
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22437, (SELECT ID FROM Class WHERE [Name] = 'Hunter'))--Cryptstalker Leggings
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22440, (SELECT ID FROM Class WHERE [Name] = 'Hunter'))--Cryptstalker Sandals
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22428, 'Redemption Headpiece', 88, (SELECT ID FROM Slot WHERE Name = 'Head'), 0, 22360)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22429, 'Redemption Spaulders', 86, (SELECT ID FROM Slot WHERE Name = 'Shoulder'), 0, 22361)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22425, 'Redemption Tunic', 92, (SELECT ID FROM Slot WHERE Name = 'Chest'), 0, 22350)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22424, 'Redemption Wristguards', 88, (SELECT ID FROM Slot WHERE Name = 'Wrist'), 0, 22362)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22426, 'Redemption Handguards', 88, (SELECT ID FROM Slot WHERE Name = 'Hands'), 0, 22364)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22431, 'Redemption Girdle', 88, (SELECT ID FROM Slot WHERE Name = 'Waist'), 0, 22363)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22427, 'Redemption Legguards', 88, (SELECT ID FROM Slot WHERE Name = 'Legs'), 0, 22359)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22430, 'Redemption Boots', 86, (SELECT ID FROM Slot WHERE Name = 'Feet'), 0, 22365)
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22428, (SELECT ID FROM Class WHERE [Name] = 'Paladin'))--Redemption Circlet
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22429, (SELECT ID FROM Class WHERE [Name] = 'Paladin'))--Redemption Shoulderpads
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22425, (SELECT ID FROM Class WHERE [Name] = 'Paladin'))--Redemption Robe
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22424, (SELECT ID FROM Class WHERE [Name] = 'Paladin'))--Redemption Bindings
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22426, (SELECT ID FROM Class WHERE [Name] = 'Paladin'))--Redemption Gloves
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22431, (SELECT ID FROM Class WHERE [Name] = 'Paladin'))--Redemption Belt
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22427, (SELECT ID FROM Class WHERE [Name] = 'Paladin'))--Redemption Leggings
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22430, (SELECT ID FROM Class WHERE [Name] = 'Paladin'))--Redemption Sandals
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22466, 'Earthshatter Headpiece', 88, (SELECT ID FROM Slot WHERE Name = 'Head'), 0, 22360)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22467, 'Earthshatter Spaulders', 86, (SELECT ID FROM Slot WHERE Name = 'Shoulder'), 0, 22361)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22464, 'Earthshatter Tunic', 92, (SELECT ID FROM Slot WHERE Name = 'Chest'), 0, 22350)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22471, 'Earthshatter Wristguards', 88, (SELECT ID FROM Slot WHERE Name = 'Wrist'), 0, 22362)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22469, 'Earthshatter Handguards', 88, (SELECT ID FROM Slot WHERE Name = 'Hands'), 0, 22364)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22470, 'Earthshatter Girdle', 88, (SELECT ID FROM Slot WHERE Name = 'Waist'), 0, 22363)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22465, 'Earthshatter Legguards', 88, (SELECT ID FROM Slot WHERE Name = 'Legs'), 0, 22359)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22468, 'Earthshatter Boots', 86, (SELECT ID FROM Slot WHERE Name = 'Feet'), 0, 22365)
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22466, (SELECT ID FROM Class WHERE [Name] = 'Shaman'))--Earthshatter Circlet
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22467, (SELECT ID FROM Class WHERE [Name] = 'Shaman'))--Earthshatter Shoulderpads
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22464, (SELECT ID FROM Class WHERE [Name] = 'Shaman'))--Earthshatter Robe
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22471, (SELECT ID FROM Class WHERE [Name] = 'Shaman'))--Earthshatter Bindings
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22469, (SELECT ID FROM Class WHERE [Name] = 'Shaman'))--Earthshatter Gloves
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22470, (SELECT ID FROM Class WHERE [Name] = 'Shaman'))--Earthshatter Belt
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22465, (SELECT ID FROM Class WHERE [Name] = 'Shaman'))--Earthshatter Leggings
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22468, (SELECT ID FROM Class WHERE [Name] = 'Shaman'))--Earthshatter Sandals
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22478, 'Bonescythe Helmet', 88, (SELECT ID FROM Slot WHERE Name = 'Head'), 0, 22353)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22479, 'Bonescythe Pauldrons', 86, (SELECT ID FROM Slot WHERE Name = 'Shoulder'), 0, 22354)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22476, 'Bonescythe Breastplate', 92, (SELECT ID FROM Slot WHERE Name = 'Chest'), 0, 22349)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22483, 'Bonescythe Bracers', 88, (SELECT ID FROM Slot WHERE Name = 'Wrist'), 0, 22355)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22481, 'Bonescythe Gauntlets', 88, (SELECT ID FROM Slot WHERE Name = 'Hands'), 0, 22357)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22482, 'Bonescythe Waistguard', 88, (SELECT ID FROM Slot WHERE Name = 'Waist'), 0, 22356)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22477, 'Bonescythe Legplates', 88, (SELECT ID FROM Slot WHERE Name = 'Legs'), 0, 22352)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22480, 'Bonescythe Sabatons', 86, (SELECT ID FROM Slot WHERE Name = 'Feet'), 0, 22358)
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22478, (SELECT ID FROM Class WHERE [Name] = 'Rogue'))--Bonescythe Circlet
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22479, (SELECT ID FROM Class WHERE [Name] = 'Rogue'))--Bonescythe Shoulderpads
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22476, (SELECT ID FROM Class WHERE [Name] = 'Rogue'))--Bonescythe Robe
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22483, (SELECT ID FROM Class WHERE [Name] = 'Rogue'))--Bonescythe Bindings
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22481, (SELECT ID FROM Class WHERE [Name] = 'Rogue'))--Bonescythe Gloves
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22482, (SELECT ID FROM Class WHERE [Name] = 'Rogue'))--Bonescythe Belt
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22477, (SELECT ID FROM Class WHERE [Name] = 'Rogue'))--Bonescythe Leggings
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22480, (SELECT ID FROM Class WHERE [Name] = 'Rogue'))--Bonescythe Sandals
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22418, 'Dreadnaught Helmet', 88, (SELECT ID FROM Slot WHERE Name = 'Head'), 0, 22353)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22419, 'Dreadnaught Pauldrons', 86, (SELECT ID FROM Slot WHERE Name = 'Shoulder'), 0, 22354)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22416, 'Dreadnaught Breastplate', 92, (SELECT ID FROM Slot WHERE Name = 'Chest'), 0, 22349)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22423, 'Dreadnaught Bracers', 88, (SELECT ID FROM Slot WHERE Name = 'Wrist'), 0, 22355)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22421, 'Dreadnaught Gauntlets', 88, (SELECT ID FROM Slot WHERE Name = 'Hands'), 0, 22357)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22422, 'Dreadnaught Waistguard', 88, (SELECT ID FROM Slot WHERE Name = 'Waist'), 0, 22356)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22417, 'Dreadnaught Legplates', 88, (SELECT ID FROM Slot WHERE Name = 'Legs'), 0, 22352)
+INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (22420, 'Dreadnaught Sabatons', 86, (SELECT ID FROM Slot WHERE Name = 'Feet'), 0, 22358)
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22418, (SELECT ID FROM Class WHERE [Name] = 'Warrior'))--Dreadnaught Circlet
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22419, (SELECT ID FROM Class WHERE [Name] = 'Warrior'))--Dreadnaught Shoulderpads
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22416, (SELECT ID FROM Class WHERE [Name] = 'Warrior'))--Dreadnaught Robe
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22423, (SELECT ID FROM Class WHERE [Name] = 'Warrior'))--Dreadnaught Bindings
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22421, (SELECT ID FROM Class WHERE [Name] = 'Warrior'))--Dreadnaught Gloves
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22422, (SELECT ID FROM Class WHERE [Name] = 'Warrior'))--Dreadnaught Belt
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22417, (SELECT ID FROM Class WHERE [Name] = 'Warrior'))--Dreadnaught Leggings
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (22420, (SELECT ID FROM Class WHERE [Name] = 'Warrior'))--Dreadnaught Sandals
 GO
 -- Naxx Trash
 INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (23664, 'Pauldrons of Elemental Fury', 85, (SELECT ID FROM Slot WHERE Name = 'Shoulder'), 0, NULL)

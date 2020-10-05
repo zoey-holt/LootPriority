@@ -114,46 +114,33 @@ ON b2.RaidID = r2.ID
 WHERE i.IsQuestItem = 0) a
 ORDER BY Raid ASC, BossID ASC, DropChance DESC
 
---SELECT 
---	i.ID,
---	i.Name, 
---	i.Level, 
---	s.Name Slot, 
---	i.IsQuestItem,
---	c.Name Class,
---	i2.ID QuestRewardID
---FROM Item i
---LEFT JOIN Slot s
---ON i.SlotID = s.ID
---LEFT JOIN ItemClass ic
---ON ic.ItemID = i.ID
---LEFT JOIN Class c
---ON c.ID = ic.ClassID
---LEFT JOIN Item i2
---ON i.ID = i2.RewardFromQuestItem
---ORDER BY i.IsQuestItem ASC
+SELECT 
+	i.ID,
+	i.Name, 
+	i.Level, 
+	s.Name Slot, 
+	i.IsQuestItem,
+	c.Name Class,
+	i2.ID QuestRewardID
+FROM Item i
+LEFT JOIN Slot s
+ON i.SlotID = s.ID
+LEFT JOIN ItemClass ic
+ON ic.ItemID = i.ID
+LEFT JOIN Class c
+ON c.ID = ic.ClassID
+LEFT JOIN Item i2
+ON i.ID = i2.RewardFromQuestItem
+ORDER BY i.IsQuestItem ASC
 
 
---SELECT COUNT(i.ID) ItemCount, c.Name
---FROM Item i
---LEFT JOIN ItemClass ic
---ON ic.ItemID = i.ID
---LEFT JOIN Class c
---ON c.ID = ic.ClassID
---GROUP BY c.Name
-
---SELECT t.ItemCount, s.Name, t.AverageLevel
---FROM (
---	SELECT COUNT(i.ID) ItemCount, i.SlotID, AVG(i.Level) AverageLevel
---	FROM Item i
---	LEFT JOIN ItemClass ic
---	ON ic.ItemID = i.ID
---	WHERE i.RewardFromQuestItem IS NULL AND i.IsQuestItem = 0
---	GROUP BY i.SlotID
---) t
---LEFT JOIN Slot s
---ON s.ID = t.SlotID
---ORDER BY t.AverageLevel DESC
+SELECT COUNT(i.ID) ItemCount, c.Name
+FROM Item i
+LEFT JOIN ItemClass ic
+ON ic.ItemID = i.ID
+LEFT JOIN Class c
+ON c.ID = ic.ClassID
+GROUP BY c.Name
 
 
 --INSERT INTO CharacterLoot (CharacterID, ItemID, [Date]) VALUES ((SELECT ID FROM [Character] WHERE [Name] = 'Zoey'), (SELECT ID FROM Item WHERE [Name] = 'Boots of Epiphany'), '2020-08-24')
