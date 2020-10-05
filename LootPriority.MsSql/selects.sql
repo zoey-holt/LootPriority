@@ -72,75 +72,131 @@ GO
 --INSERT INTO ItemClassWeight (ItemID, ClassID, Weight) VALUES ((SELECT ID FROM Item WHERE Name = 'Ring of the Fallen God'), (SELECT ID FROM Class WHERE Name = 'Warlock'), 1.2)
 
 
-SELECT * FROM (
-SELECT 
-	i.ID ItemID,
-	i.Name Item, 
-	i.Level ItemLevel, 
-	s.Name Slot, 
-	CASE 
-		WHEN r.Name IS NULL THEN r2.Name
-		ELSE r.Name
-	END Raid, 
-	CASE 
-		WHEN b.ID IS NULL THEN b2.ID
-		ELSE b.ID
-	END BossID, 
-	CASE 
-		WHEN b.Name IS NULL THEN b2.Name
-		ELSE b.Name
-	END Boss, 
-	CASE 
-		WHEN bl.DropChance IS NULL THEN bl2.DropChance-- / (SELECT COUNT(*) FROM Item WHERE IsQuestItem = 0 AND RewardFromQuestItem = i2.ID)
-		ELSE bl.DropChance
-	END DropChance
+--SELECT * FROM (
+--SELECT 
+--	i.ID ItemID,
+--	i.Name Item, 
+--	i.Level ItemLevel, 
+--	s.Name Slot, 
+--	CASE 
+--		WHEN r.Name IS NULL THEN r2.Name
+--		ELSE r.Name
+--	END Raid, 
+--	CASE 
+--		WHEN b.ID IS NULL THEN b2.ID
+--		ELSE b.ID
+--	END BossID, 
+--	CASE 
+--		WHEN b.Name IS NULL THEN b2.Name
+--		ELSE b.Name
+--	END Boss, 
+--	CASE 
+--		WHEN bl.DropChance IS NULL THEN bl2.DropChance-- / (SELECT COUNT(*) FROM Item WHERE IsQuestItem = 0 AND RewardFromQuestItem = i2.ID)
+--		ELSE bl.DropChance
+--	END DropChance
+--FROM Item i
+--LEFT JOIN Slot s
+--ON i.SlotID = s.ID
+--LEFT JOIN Item i2
+--ON i.RewardFromQuestItem = i2.ID AND i2.IsQuestItem = 1
+--LEFT JOIN BossLoot bl
+--ON bl.ItemID = i.ID
+--LEFT JOIN Boss b
+--ON b.ID = bl.BossID
+--LEFT JOIN Raid r
+--ON b.RaidID = r.ID
+--LEFT JOIN BossLoot bl2
+--ON bl2.ItemID = i2.ID
+--LEFT JOIN Boss b2
+--ON b2.ID = bl2.BossID
+--LEFT JOIN Raid r2
+--ON b2.RaidID = r2.ID
+--WHERE i.IsQuestItem = 0) a
+--ORDER BY Raid ASC, BossID ASC, DropChance DESC
+
+
+
+SELECT COUNT(Item) ItemCount, AVG(ItemLevel) AverageItemLevel, Raid, Boss
+FROM (
+	SELECT 
+		i.Name Item, 
+		i.Level ItemLevel, 
+		CASE 
+			WHEN r.Name IS NULL THEN r2.Name
+			ELSE r.Name
+		END Raid, 
+		CASE 
+			WHEN b.Name IS NULL THEN b2.Name
+			ELSE b.Name
+		END Boss,
+		CASE 
+			WHEN bl.DropChance IS NULL THEN bl2.DropChance
+			ELSE bl.DropChance
+		END DropChance,
+		CASE 
+			WHEN bl.DropChance IS NULL THEN bl2.DropChance * i.Level
+			ELSE bl.DropChance * i.Level
+		END ItemLevelWeight
+	FROM Item i
+	LEFT JOIN Slot s
+	ON i.SlotID = s.ID
+	LEFT JOIN Item i2
+	ON i.RewardFromQuestItem = i2.ID AND i2.IsQuestItem = 1
+	LEFT JOIN BossLoot bl
+	ON bl.ItemID = i.ID
+	LEFT JOIN Boss b
+	ON b.ID = bl.BossID
+	LEFT JOIN Raid r
+	ON b.RaidID = r.ID
+	LEFT JOIN BossLoot bl2
+	ON bl2.ItemID = i2.ID
+	LEFT JOIN Boss b2
+	ON b2.ID = bl2.BossID
+	LEFT JOIN Raid r2
+	ON b2.RaidID = r2.ID
+	WHERE i.IsQuestItem = 0
+) a
+GROUP BY Raid, Boss
+ORDER BY AVG(ItemLevel)
+
+
+
+
+
+
+--SELECT 
+--	i.ID,
+--	i.Name, 
+--	i.Level, 
+--	s.Name Slot, 
+--	i.IsQuestItem,
+--	c.Name Class,
+--	i2.ID QuestRewardID
+--FROM Item i
+--LEFT JOIN Slot s
+--ON i.SlotID = s.ID
+--LEFT JOIN ItemClass ic
+--ON ic.ItemID = i.ID
+--LEFT JOIN Class c
+--ON c.ID = ic.ClassID
+--LEFT JOIN Item i2
+--ON i.ID = i2.RewardFromQuestItem
+--ORDER BY i.IsQuestItem ASC
+
+
+SELECT COUNT(i.ID) ItemCount, c.Name Class, r.Name Raid
 FROM Item i
-LEFT JOIN Slot s
-ON i.SlotID = s.ID
-LEFT JOIN Item i2
-ON i.RewardFromQuestItem = i2.ID AND i2.IsQuestItem = 1
+LEFT JOIN ItemClass ic
+ON ic.ItemID = i.ID
+LEFT JOIN Class c
+ON c.ID = ic.ClassID
 LEFT JOIN BossLoot bl
 ON bl.ItemID = i.ID
 LEFT JOIN Boss b
 ON b.ID = bl.BossID
 LEFT JOIN Raid r
-ON b.RaidID = r.ID
-LEFT JOIN BossLoot bl2
-ON bl2.ItemID = i2.ID
-LEFT JOIN Boss b2
-ON b2.ID = bl2.BossID
-LEFT JOIN Raid r2
-ON b2.RaidID = r2.ID
-WHERE i.IsQuestItem = 0) a
-ORDER BY Raid ASC, BossID ASC, DropChance DESC
-
-SELECT 
-	i.ID,
-	i.Name, 
-	i.Level, 
-	s.Name Slot, 
-	i.IsQuestItem,
-	c.Name Class,
-	i2.ID QuestRewardID
-FROM Item i
-LEFT JOIN Slot s
-ON i.SlotID = s.ID
-LEFT JOIN ItemClass ic
-ON ic.ItemID = i.ID
-LEFT JOIN Class c
-ON c.ID = ic.ClassID
-LEFT JOIN Item i2
-ON i.ID = i2.RewardFromQuestItem
-ORDER BY i.IsQuestItem ASC
-
-
-SELECT COUNT(i.ID) ItemCount, c.Name
-FROM Item i
-LEFT JOIN ItemClass ic
-ON ic.ItemID = i.ID
-LEFT JOIN Class c
-ON c.ID = ic.ClassID
-GROUP BY c.Name
+ON r.ID = b.RaidID
+GROUP BY c.Name, r.Name
 
 
 --INSERT INTO CharacterLoot (CharacterID, ItemID, [Date]) VALUES ((SELECT ID FROM [Character] WHERE [Name] = 'Zoey'), (SELECT ID FROM Item WHERE [Name] = 'Boots of Epiphany'), '2020-08-24')

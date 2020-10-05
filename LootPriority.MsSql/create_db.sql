@@ -791,6 +791,8 @@ INSERT INTO ItemClass (ItemID, ClassID) VALUES (16943, (SELECT ID FROM Class WHE
 INSERT INTO ItemClass (ItemID, ClassID) VALUES (16951, (SELECT ID FROM Class WHERE [Name] = 'Paladin'))--Judgement Bindings
 INSERT INTO ItemClass (ItemID, ClassID) VALUES (16926, (SELECT ID FROM Class WHERE [Name] = 'Priest'))--Bindings of Transcendence
 INSERT INTO ItemClass (ItemID, ClassID) VALUES (16935, (SELECT ID FROM Class WHERE [Name] = 'Hunter'))--Dragonstalker's Bracers
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (19336, (SELECT ID FROM Class WHERE [Name] = 'Hunter'))--Arcane Infused Gem
+INSERT INTO ItemClass (ItemID, ClassID) VALUES (19337, (SELECT ID FROM Class WHERE [Name] = 'Warlock'))--The Black Book
 GO
 -- Vaelastrasz the Corrupt
 INSERT INTO Item (ID, Name, Level, SlotID, IsQuestItem, RewardFromQuestItem) VALUES (16910, 'Bloodfang Belt', 76, (SELECT ID FROM Slot WHERE Name = 'Waist'), 0, NULL)
@@ -961,7 +963,8 @@ INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss W
 INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Ebonroc'), 16907, 0.13)--Bloodfang Gloves
 INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Ebonroc'), 19396, 0.13)--Taut Dragonhide Belt
 INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Ebonroc'), 19394, 0.10)--Drake Talon Pauldrons
-INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Ebonroc'), 16956, 0.09)--Judgement Gauntlets
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Ebonroc'), 16956, 0.15)--Judgement Gauntlets
+INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Ebonroc'), 16948, 0.15)--Gauntlets of Ten Storms
 INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Ebonroc'), 19353, 0.09)--Drake Talon Cleaver
 INSERT INTO BossLoot (BossID, ItemID, DropChance) VALUES ((SELECT ID FROM Boss WHERE Name = 'Ebonroc'), 19355, 0.05)--Shadow Wing Focus Staff
 INSERT INTO ItemClass (ItemID, ClassID) VALUES (19345, (SELECT ID FROM Class WHERE [Name] = 'Priest'))--Aegis of Preservation
