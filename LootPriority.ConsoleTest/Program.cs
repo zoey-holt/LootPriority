@@ -13,12 +13,12 @@ namespace LootPriority.ConsoleTest
     {
         public static void Main(string[] args)
         {
-            //var playerRepo = new PlayerRepository();
-            //AddPlayersFromFile(playerRepo);
-            //PrintPlayers(playerRepo.GetPlayers());
+            var playerRepo = new PlayerRepository();
+            AddPlayersFromFile(playerRepo);
+            PrintPlayers(playerRepo.GetPlayers());
 
-            //var itemRepo = new ItemRepository();
-            //PrintItems(itemRepo.GetItems());
+            var itemRepo = new ItemRepository();
+            PrintItems(itemRepo.GetItems());
 
             Dictionary<string, List<BossLoot>> bossDrops = GetBossDropsFromWowhead();
 
@@ -30,6 +30,7 @@ namespace LootPriority.ConsoleTest
             Dictionary<string, string[]> bossIds = GetBossIds();
             Dictionary<int, Slot> slotConverter = GetWowheadSlotConverter();
             Dictionary<long, CharacterClass> classConverter = GetWowheadClassConverter();
+            // BoEs, plans, and other non-raid gear that doesn't matter for the app
             string[] itemExceptions = new string[]
             {
                 "Sulfuron Ingot",

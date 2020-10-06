@@ -162,7 +162,6 @@ namespace LootPriority.ConsoleApp
                 i++;
                 Console.WriteLine($"\t\t\t" +
                     $"{i}\t" +
-                    $"{loot.Item1.Id}\t" +
                     $"{loot.Item1.DateTime:yyyy-MM-dd}\t" +
                     $"{(Main.Class == CharacterClass.Mage ? loot.Item2.MageLootValue : loot.Item2.WarlockLootValue):F}\t" +
                     $"{loot.Item1.Response}\t\t" +
