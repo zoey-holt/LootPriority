@@ -28,8 +28,8 @@ namespace LootPriority.ConsoleApp
 
             PrintItems(items, warlockMax, mageMax);
 
-            var nDaysAgo = DateTime.Today - TimeSpan.FromDays(90);
-            IEnumerable<Player> players = PlayerDb.LoadPlayers(RaidTierDates[RaidTier.BlackwingLair], RaidTierDates[RaidTier.BlackwingLair], RaidTierDates[RaidTier.AhnQiraj])
+            var nDaysAgo = DateTime.Today - TimeSpan.FromDays(150);
+            IEnumerable<Player> players = PlayerDb.LoadPlayers(nDaysAgo, nDaysAgo, RaidTierDates[RaidTier.AhnQiraj])
                 .Where(p => p.Characters.Any(c => c.IsMain && (c.Class == CharacterClass.Warlock || c.Class == CharacterClass.Mage)))
                 .OrderByDescending(p => p.LootPriority);
 
